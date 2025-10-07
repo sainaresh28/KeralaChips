@@ -152,13 +152,13 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/30"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-6xl font-extrabold mb-6 text-white">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-white">
             KerMedix
-          </h2>
-
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            Digital Health Records
           </h1>
+
+          <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+            Kerala Digital Health Records
+          </h2>
           
           <p className="text-xl md:text-2xl mb-12 text-gray-300 max-w-4xl mx-auto leading-relaxed">
             KerMedix's Digital Health Records service helps institutions maintain organized, secure, and accessible medical data for migrant workers and communities.
