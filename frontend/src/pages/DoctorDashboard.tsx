@@ -57,76 +57,81 @@ const DoctorDashboard = () => {
   return (
     <DashboardLayout userRole="Doctor" sidebarItems={[]}>
       <div className="space-y-6">
-        {/* Header Section */}
-        <div className="flex justify-between items-start">
+        {/* Header Section: Flex-col on mobile, flex-row on md screens */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div>
-            <h2 className="text-3xl font-bold text-black">{doctorName}</h2>
-            <p className="text-gray-600 mt-1">{specialty} • {hospital}</p>
-            <div className="flex items-center gap-2 mt-2">
+            {/* Reduced text size slightly for mobile context */}
+            <h2 className="text-2xl sm:text-3xl font-bold text-black">{doctorName}</h2> 
+            <p className="text-sm text-gray-600 mt-0.5">{specialty} • {hospital}</p>
+            <div className="flex items-center gap-2 mt-1">
               <Badge className={availabilityStatus === 'Online' ? 'bg-black text-white' : 'bg-gray-300 text-black'}>
                 {availabilityStatus}
               </Badge>
-              <span className="text-sm text-gray-600">Doctor ID: {doctorId}</span>
+              <span className="text-xs text-gray-600">Doctor ID: {doctorId}</span>
             </div>
           </div>
           
-          <div className="flex gap-2">
-
-            <Button className="bg-black text-white hover:bg-gray-900">
+          {/* Action Button: w-full on mobile, auto width on medium screens */}
+          <div className="flex gap-2 mt-4 md:mt-0 w-full md:w-auto"> 
+            <Button className="bg-black text-white hover:bg-gray-900 w-full">
               <UserPlus className="h-4 w-4 mr-2" />
               Add New Record
             </Button>
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* Stats Cards: Uses sm:grid-cols-2 for better use of space on tablet/larger phone screens */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* ... Card 1 ... */}
           <Card className="border-2 border-black">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-2xl font-bold text-black">{filteredWorkers.length}</div>
+                  <div className="text-xl sm:text-2xl font-bold text-black">{filteredWorkers.length}</div>
                   <p className="text-xs text-gray-600 mt-1">Total Patients</p>
                 </div>
-                <Users className="h-8 w-8 text-gray-400" />
+                <Users className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
               </div>
             </CardContent>
           </Card>
           
+          {/* ... Card 2 ... */}
           <Card className="border-2 border-black">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-2xl font-bold text-black">{doctorRecords.length}</div>
+                  <div className="text-xl sm:text-2xl font-bold text-black">{doctorRecords.length}</div>
                   <p className="text-xs text-gray-600 mt-1">Records Created</p>
                 </div>
-                <FileText className="h-8 w-8 text-gray-400" />
+                <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
               </div>
             </CardContent>
           </Card>
           
+          {/* ... Card 3 ... */}
           <Card className="border-2 border-black">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-2xl font-bold text-black">{todayAppointments.length}</div>
+                  <div className="text-xl sm:text-2xl font-bold text-black">{todayAppointments.length}</div>
                   <p className="text-xs text-gray-600 mt-1">Today's Appointments</p>
                 </div>
-                <Calendar className="h-8 w-8 text-gray-400" />
+                <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
               </div>
             </CardContent>
           </Card>
           
+          {/* ... Card 4 ... */}
           <Card className="border-2 border-black">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-2xl font-bold text-black">
+                  <div className="text-xl sm:text-2xl font-bold text-black">
                     {todayAppointments.filter(a => a.status === 'Pending').length}
                   </div>
                   <p className="text-xs text-gray-600 mt-1">Pending Reviews</p>
                 </div>
-                <Clock className="h-8 w-8 text-gray-400" />
+                <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
               </div>
             </CardContent>
           </Card>
@@ -134,12 +139,13 @@ const DoctorDashboard = () => {
 
         {/* Main Tabs */}
         <Tabs defaultValue="patients" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 border-2 border-black bg-white">
-            <TabsTrigger value="patients" className="data-[state=active]:bg-black data-[state=active]:text-white">Patient Search</TabsTrigger>
-            <TabsTrigger value="records" className="data-[state=active]:bg-black data-[state=active]:text-white">Recent Records</TabsTrigger>
-            <TabsTrigger value="appointments" className="data-[state=active]:bg-black data-[state=active]:text-white">Appointments</TabsTrigger>
-            <TabsTrigger value="analytics" className="data-[state=active]:bg-black data-[state=active]:text-white">Analytics</TabsTrigger>
-            <TabsTrigger value="alerts" className="data-[state=active]:bg-black data-[state=active]:text-white">Community Alerts</TabsTrigger>
+          {/* TabsList: Uses flex and overflow-x-auto for horizontal scrolling on mobile */}
+          <TabsList className="flex w-full overflow-x-auto whitespace-nowrap border-2 border-black bg-white p-1">
+            <TabsTrigger value="patients" className="flex-shrink-0 px-4 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Patient Search</TabsTrigger>
+            <TabsTrigger value="records" className="flex-shrink-0 px-4 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Recent Records</TabsTrigger>
+            <TabsTrigger value="appointments" className="flex-shrink-0 px-4 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Appointments</TabsTrigger>
+            <TabsTrigger value="analytics" className="flex-shrink-0 px-4 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Analytics</TabsTrigger>
+            <TabsTrigger value="alerts" className="flex-shrink-0 px-4 py-2 data-[state=active]:bg-black data-[state=active]:text-white">Community Alerts</TabsTrigger>
           </TabsList>
           
           {/* Patient Search Tab */}
@@ -147,27 +153,30 @@ const DoctorDashboard = () => {
             <Card className="border-2 border-black">
               <CardHeader>
                 <CardTitle className="text-black">Patient Management</CardTitle>
-                <CardDescription>Search workers by ID, Name, Phone, or QR scan</CardDescription>
+                <CardDescription>Search workers by ID, Name, or Phone</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex gap-3 mb-6">
-                  <div className="flex-1 relative">
+                {/* Search Bar: Stacks on mobile, uses full width */}
+                <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                  <div className="flex-1 relative w-full">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
                       placeholder="Search by Worker ID, Name, or Phone..."
                       value={searchWorkerId}
                       onChange={(e) => setSearchWorkerId(e.target.value)}
-                      className="pl-10 border-2 border-black focus:ring-2 focus:ring-black"
+                      className="pl-10 border-2 border-black focus:ring-2 focus:ring-black w-full"
                     />
                   </div>
-                  <Button variant="outline" className="border-2 border-black hover:bg-gray-100">
+                  {/* Button: w-full on mobile, auto width on medium screens */}
+                  <Button variant="outline" className="w-full sm:w-auto border-2 border-black hover:bg-gray-100">
                     <Search className="h-4 w-4 mr-2" />
                     Scan QR Code
                   </Button>
                 </div>
 
-                <div className="overflow-hidden border-2 border-black rounded-lg">
-                  <table className="healthcare-table">
+                {/* Table: Added overflow-x-auto for horizontal scrolling and min-width to prevent squishing */}
+                <div className="overflow-x-auto border-2 border-black rounded-lg">
+                  <table className="healthcare-table min-w-[650px] w-full">
                     <thead>
                       <tr>
                         <th>Worker ID</th>
@@ -180,20 +189,20 @@ const DoctorDashboard = () => {
                     <tbody>
                       {filteredWorkers.map((worker) => (
                         <tr key={worker.id}>
-                          <td className="font-mono text-sm text-gray-700">{worker.id}</td>
+                          <td className="font-mono text-xs sm:text-sm text-gray-700">{worker.id}</td>
                           <td className="font-medium text-black">{worker.name}</td>
-                          <td className="text-gray-700">{worker.contact || 'N/A'}</td>
-                          <td className="text-gray-700">
+                          <td className="text-xs sm:text-sm text-gray-700">{worker.contact || 'N/A'}</td>
+                          <td className="text-xs sm:text-sm text-gray-700">
                             {mockHealthRecords.find(r => r.workerId === worker.id)?.date || 'No visits'}
                           </td>
                           <td>
-                            <div className="flex gap-2">
-                              <Button size="sm" className="bg-black text-white hover:bg-gray-900">
+                            <div className="flex gap-1.5 flex-wrap"> {/* Allow buttons to wrap if space is tight */}
+                              <Button size="xs" className="bg-black text-white hover:bg-gray-900 h-7 text-xs">
                                 <FileText className="h-3 w-3 mr-1" />
-                                Add Record
+                                Record
                               </Button>
-                              <Button size="sm" variant="outline" className="border-black hover:bg-gray-100">
-                                View History
+                              <Button size="xs" variant="outline" className="border-black hover:bg-gray-100 h-7 text-xs">
+                                History
                               </Button>
                             </div>
                           </td>
@@ -208,21 +217,22 @@ const DoctorDashboard = () => {
           
           {/* Recent Records Tab */}
           <TabsContent value="records" className="space-y-4">
-            <div className="flex justify-between items-center">
+            {/* Header: Action buttons stack on mobile */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h3 className="text-xl font-bold text-black">Recent Health Records</h3>
-              <div className="flex gap-2">
-                <Button variant="outline" className="border-2 border-black hover:bg-gray-100">
+              <div className="flex gap-2 w-full sm:w-auto">
+                <Button variant="outline" className="border-2 border-black hover:bg-gray-100 w-1/2 sm:w-auto">
                   <Upload className="h-4 w-4 mr-2" />
-                  Upload Prescription
+                  Upload
                 </Button>
-                <Button className="bg-black text-white hover:bg-gray-900">
+                <Button className="bg-black text-white hover:bg-gray-900 w-1/2 sm:w-auto">
                   <FileText className="h-4 w-4 mr-2" />
                   New Record
                 </Button>
               </div>
             </div>
             <Card className="border-2 border-black">
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6 overflow-x-auto">
                 <HealthRecordsTable records={doctorRecords} showActions={true} />
               </CardContent>
             </Card>
@@ -230,9 +240,9 @@ const DoctorDashboard = () => {
           
           {/* Appointments Tab */}
           <TabsContent value="appointments" className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h3 className="text-xl font-bold text-black">Today's Schedule</h3>
-              <Button className="bg-black text-white hover:bg-gray-900">
+              <Button className="bg-black text-white hover:bg-gray-900 w-full sm:w-auto">
                 <Calendar className="h-4 w-4 mr-2" />
                 View Full Calendar
               </Button>
@@ -241,12 +251,13 @@ const DoctorDashboard = () => {
             <div className="grid gap-4">
               {todayAppointments.map((apt) => (
                 <Card key={apt.id} className="border-2 border-black">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start">
-                      <div className="space-y-2">
+                  <CardContent className="p-4 sm:p-6">
+                    {/* Appointment Card Content: stacks details and buttons on mobile */}
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                      <div className="space-y-2 mb-4 sm:mb-0">
                         <div>
-                          <h4 className="font-bold text-black text-lg">{apt.workerName}</h4>
-                          <p className="text-sm text-gray-600">Worker ID: {apt.workerId}</p>
+                          <h4 className="font-bold text-black text-base sm:text-lg">{apt.workerName}</h4>
+                          <p className="text-xs sm:text-sm text-gray-600">Worker ID: {apt.workerId}</p>
                         </div>
                         <div className="flex gap-4 text-sm">
                           <div className="flex items-center gap-1 text-gray-600">
@@ -261,17 +272,17 @@ const DoctorDashboard = () => {
                           {apt.status}
                         </Badge>
                       </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm" className="border-2 border-black hover:bg-gray-100">
+                      <div className="flex gap-2 w-full sm:w-auto">
+                        <Button variant="outline" size="sm" className="border-2 border-black hover:bg-gray-100 w-1/2 sm:w-auto">
                           Reschedule
                         </Button>
                         {apt.type === 'Teleconsultation' ? (
-                          <Button size="sm" className="gap-2 bg-black text-white hover:bg-gray-900">
+                          <Button size="sm" className="gap-2 bg-black text-white hover:bg-gray-900 w-1/2 sm:w-auto">
                             <Video className="h-4 w-4" />
                             Join Call
                           </Button>
                         ) : (
-                          <Button size="sm" className="bg-black text-white hover:bg-gray-900">
+                          <Button size="sm" className="bg-black text-white hover:bg-gray-900 w-1/2 sm:w-auto">
                             Start Consultation
                           </Button>
                         )}
@@ -293,7 +304,7 @@ const DoctorDashboard = () => {
                   <CardTitle className="text-black">Common Health Issues</CardTitle>
                   <CardDescription>Trending health problems among patients</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 sm:p-6">
                   <div className="space-y-4">
                     {healthTrends.map((trend, idx) => (
                       <div key={idx} className="flex items-center justify-between">
@@ -312,19 +323,20 @@ const DoctorDashboard = () => {
                             ></div>
                           </div>
                         </div>
-                        <span className="text-2xl font-bold text-black ml-4">{trend.count}</span>
+                        <span className="text-xl sm:text-2xl font-bold text-black ml-4">{trend.count}</span>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
 
+              {/* ... Vaccination Card (kept original structure, as progress bars scale well) ... */}
               <Card className="border-2 border-black">
                 <CardHeader>
                   <CardTitle className="text-black">Vaccination Coverage</CardTitle>
                   <CardDescription>Immunization status of registered workers</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4 sm:p-6">
                   <div className="space-y-4">
                     <div>
                       <div className="flex justify-between text-sm mb-2">
@@ -356,30 +368,31 @@ const DoctorDashboard = () => {
                   </div>
                 </CardContent>
               </Card>
+              
+              {/* ... Predictive Alerts Card (kept original structure) ... */}
+              <Card className="border-2 border-black col-span-1 md:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-black">Predictive Alerts</CardTitle>
+                  <CardDescription>AI-based outbreak and health risk predictions</CardDescription>
+                </CardHeader>
+                <CardContent className="p-4 sm:p-6">
+                  <Alert className="border-2 border-yellow-500 bg-yellow-50">
+                    <Bell className="h-4 w-4 text-yellow-600" />
+                    <AlertDescription>
+                      <p className="font-medium text-yellow-900">Potential Dengue Hotspot Detected</p>
+                      <p className="text-sm text-yellow-700 mt-1">Increased fever cases in construction sites near Panampilly Nagar. Recommend preventive measures.</p>
+                    </AlertDescription>
+                  </Alert>
+                </CardContent>
+              </Card>
             </div>
-
-            <Card className="border-2 border-black">
-              <CardHeader>
-                <CardTitle className="text-black">Predictive Alerts</CardTitle>
-                <CardDescription>AI-based outbreak and health risk predictions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Alert className="border-2 border-yellow-500 bg-yellow-50">
-                  <Bell className="h-4 w-4 text-yellow-600" />
-                  <AlertDescription>
-                    <p className="font-medium text-yellow-900">Potential Dengue Hotspot Detected</p>
-                    <p className="text-sm text-yellow-700 mt-1">Increased fever cases in construction sites near Panampilly Nagar. Recommend preventive measures.</p>
-                  </AlertDescription>
-                </Alert>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           {/* Community Alerts Tab */}
           <TabsContent value="alerts" className="space-y-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <h3 className="text-xl font-bold text-black">Community Health Alerts</h3>
-              <Button className="bg-black text-white hover:bg-gray-900">
+              <Button className="bg-black text-white hover:bg-gray-900 w-full sm:w-auto">
                 <Bell className="h-4 w-4 mr-2" />
                 Send Announcement
               </Button>
@@ -388,11 +401,11 @@ const DoctorDashboard = () => {
             <div className="space-y-3">
               {communityAlerts.map((alert) => (
                 <Card key={alert.id} className="border-2 border-black">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-2">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start justify-between">
+                      <div className="space-y-1 mb-3 sm:mb-0">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-black text-lg">{alert.title}</h4>
+                          <h4 className="font-bold text-black text-base sm:text-lg">{alert.title}</h4>
                           <Badge className={
                             alert.severity === 'high' ? 'bg-red-600 text-white' :
                             alert.severity === 'medium' ? 'bg-yellow-600 text-white' :
@@ -401,10 +414,10 @@ const DoctorDashboard = () => {
                             {alert.severity.toUpperCase()}
                           </Badge>
                         </div>
-                        <p className="text-gray-600">{alert.location}</p>
-                        <p className="text-sm text-gray-500">{alert.date}</p>
+                        <p className="text-gray-600 text-sm">{alert.location}</p>
+                        <p className="text-xs text-gray-500">{alert.date}</p>
                       </div>
-                      <Button variant="outline" className="border-2 border-black hover:bg-gray-100">
+                      <Button variant="outline" className="border-2 border-black hover:bg-gray-100 w-full sm:w-auto">
                         View Details
                       </Button>
                     </div>
@@ -417,9 +430,9 @@ const DoctorDashboard = () => {
               <CardHeader>
                 <CardTitle className="text-black">Public Health Department Updates</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-4 sm:p-6">
                 <p className="text-gray-600">Receive and manage epidemic notifications and guidelines</p>
-                <Button className="mt-4 bg-black text-white hover:bg-gray-900">
+                <Button className="mt-4 bg-black text-white hover:bg-gray-900 w-full sm:w-auto">
                   <Bell className="h-4 w-4 mr-2" />
                   Subscribe to Notifications
                 </Button>
