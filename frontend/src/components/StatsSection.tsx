@@ -19,8 +19,6 @@ const StatsSection = () => {
   useEffect(() => {
     if (!ref.current) return;
     const section = ref.current;
-
-    // wait for images (critical)
     const images = Array.from(section.querySelectorAll("img"));
     const waitForImages = Promise.all(
       images.map(
@@ -37,8 +35,6 @@ const StatsSection = () => {
     waitForImages.then(() => {
       ctx = gsap.context(() => {
         gsap.set(section, { visibility: "visible" });
-
-
         gsap.set(".letter-wrapper", { y: 400 });
         gsap.set(".item-copy-wrapper p", { y: 50, opacity: 0 });
 
@@ -67,8 +63,7 @@ const StatsSection = () => {
           .to(".header-item-1", { x: -18, duration: 0.6 }, ">")
           .to(".header-item-2", { x: 18, duration: 0.6 }, "<")
           .to(".item-main img", { scale: 1 }, "<")
-
-   
+  
           .to(
             ".stat-card",
             {
@@ -110,7 +105,6 @@ const StatsSection = () => {
           toggleActions: "restart none none reset",
         });
 
-        // 🔢 COUNT-UP NUMBERS
         gsap.utils.toArray<HTMLElement>(".stat-number").forEach((el) => {
           const raw = el.dataset.value || "0";
           const hasPlus = raw.includes("+");
@@ -232,7 +226,6 @@ const StatsSection = () => {
 export default StatsSection;
 
 /* ================= CSS ================= */
-
 const css = `
 .stats-section{
   width:100vw;
@@ -370,11 +363,9 @@ const css = `
 .letter-wrapper{position:relative}
 
 
-
-/* ================= MOBILE FIX (HEADER + CAROUSEL VISIBILITY) ================= */
+/* ================= MOBILE RESPONSIVENESS ================= */
 @media (max-width: 768px) {
 
-  /* Let section grow */
   .stats-section{
     height:auto;
     min-height:100vh;
@@ -382,15 +373,14 @@ const css = `
     padding-bottom:3rem;
   }
 
-  /* Stack content naturally */
   .container{
     flex-direction:column;
     height:auto;
   }
 
-  /* OUR STATS HEADER — move into normal flow */
+
   .header{
-    position:relative;      /* 🔥 KEY FIX */
+    position:relative;    
     bottom:auto;
     transform:none;
     width:100%;
@@ -419,12 +409,10 @@ const css = `
     -webkit-overflow-scrolling:touch;
   }
 
-  /* Remove column wrapper effect */
   .items-col{
     display:contents;
   }
-
-  /* Each card = slide */
+ 
   .item,
   .item-main{
     flex:0 0 85%;
@@ -435,12 +423,10 @@ const css = `
     scroll-snap-align:center;
   }
 
-  /* Disable hover zoom on touch */
   .stat-card:hover{
     transform:none;
   }
 
-  /* Hide scrollbar */
   .items::-webkit-scrollbar{
     display:none;
   }
@@ -448,7 +434,6 @@ const css = `
     scrollbar-width:none;
   }
 
-  /* Text scale */
   .top-text h2{
     font-size:2rem;
   }
@@ -459,7 +444,4 @@ const css = `
   }
 }
 
-
-
 `;
-
