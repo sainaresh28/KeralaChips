@@ -9,6 +9,7 @@ import FeatureShowcase from "@/components/FeatureShowcase";
 import TestimonialSection from "@/components/TestimonialSection";
 import InteractiveMap from "@/components/InteractiveMap";
 import NewsTicker from "@/components/NewsTicker";
+import BentoShowcase from "@/components/BentoShowcase";
 
 import { useTranslation } from "react-i18next";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -434,6 +435,7 @@ const Home = () => {
       </section>
 
       <FeatureShowcase />
+      <BentoShowcase />
       <TestimonialSection />
       <InteractiveMap />
     </div>
