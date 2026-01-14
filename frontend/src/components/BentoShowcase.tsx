@@ -74,7 +74,7 @@ const features = [
   },
   {
     title: "Smart Appointment Scheduling",
-    desc: "Auto-suggests slots based on doctor availability",
+    desc: "Auto-suggests the best appointment slots based on real-time doctor availability.",
     span: "md:col-span-2",
     icon: Cloud,
     bg: "bg-[#E8E4C9]",
@@ -199,18 +199,37 @@ export default function BentoFeatures() {
                     </p>
 
                     {/* HERO CHIPS (desktop only) */}
-                    {item.type === "hero" && (
-                      <div className="hidden md:flex absolute bottom-8 left-8 flex-wrap gap-4 max-w-[90%]">
-                        {["24/7 Access", "Secure Sync", "Instant Fetch"].map((k) => (
-                          <span
-                            key={k}
-                            className="text-sm bg-white/20 px-5 py-2 rounded-full"
-                          >
-                            {k}
-                          </span>
-                        ))}
+                        {item.type === "hero" && (
+                          <div className="hidden md:block absolute bottom-8 left-8 max-w-[90%] space-y-4">
+
+                            {/* HERO CHIPS */}
+                            <div className="flex flex-wrap gap-4">
+                              {["24/7 Access", "Secure Sync", "Instant Fetch", "Quick Support","Health Analytics"].map((k) => (
+                                <span
+                                  key={k}
+                                  className="text-sm bg-white/20 px-10 py-5 rounded-full"
+                                >
+                                  {k}
+                                </span>
+                              ))}
+                            </div>
+
+                          {/* PROGRESS BAR */}
+                      <div className="space-y-2">
+
+                        <div className="w-full h-5 rounded-full bg-white/25 overflow-hidden shadow-inner">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "82%" }}
+                            transition={{ duration: 1.4, ease: "easeOut" }}
+                            className="h-full bg-gradient-to-r from-[#FFD66B] to-[#FFC14D] rounded-full"
+                          />
+                        </div>
                       </div>
-                    )}
+
+                        </div>
+                      )}
+
 
                     {/* BARS */}
                     {item.type === "bars" && (
@@ -284,7 +303,7 @@ export default function BentoFeatures() {
                     {/* LANGUAGES */}
                     {item.type === "languages" && (
                       <div className="absolute bottom-6 md:bottom-8 left-4 md:left-8 flex flex-wrap gap-2">
-                        {["Hindi", "Malayalam", "English"].map((l) => (
+                        {["Hindi", "Malayalam", "English", ].map((l) => (
                           <motion.span
                             key={l}
                             whileHover={{ y: -4 }}
@@ -348,23 +367,23 @@ export default function BentoFeatures() {
       <style jsx global>{`
         .perspective { perspective: 1400px; }
 
-.card {
-  transform-style: preserve-3d;
-}
+        .card {
+          transform-style: preserve-3d;
+        }
 
-.card.flip {
-  transform: rotateY(180deg);
-}
+        .card.flip {
+          transform: rotateY(180deg);
+        }
 
 
 
-.backface-hidden {
-  backface-visibility: hidden;
-}
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
 
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
 
 
       `}</style>
