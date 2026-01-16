@@ -167,7 +167,7 @@ export default function StatsSection() {
 /* ================= CSS ================= */
 const css = `
 .stats-section{
-  background:#f5f6f7;
+  background:#F9EFE3;
   padding:3rem 0;
   font-family:Inter, sans-serif;
   overflow:hidden;
@@ -238,9 +238,9 @@ const css = `
 
 .header-item{
   display:flex;
-  font-size:12vw;
+  font-size:10vw;
   font-weight:800;
-  color:grey;
+  color:#402EE6;
 }
 
 .letter{display:inline-block}
