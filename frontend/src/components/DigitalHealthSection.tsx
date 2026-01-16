@@ -21,21 +21,18 @@ const ROW_HEIGHT = 44;
 
 const DigitalHealthSection = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const lastIndexRef = useRef<number>(-1);
-  const rafLockRef = useRef(false);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [pillY, setPillY] = useState(0);
-  const [pillScale, setPillScale] = useState(1);
 
   /* ---------- INIT SOUND ---------- */
   useEffect(() => {
     const audio = new Audio(stepClick);
-    audio.volume = 0.5;
+    audio.volume = 0.35;
     audioRef.current = audio;
   }, []);
 
@@ -58,50 +55,42 @@ const DigitalHealthSection = () => {
     return () => resetObserver.disconnect();
   }, []);
 
-  /* ---------- STEP ENGINE (NO JUMPING) ---------- */
+  /* ---------- STEP ENGINE (ULTRA RESPONSIVE) ---------- */
   useEffect(() => {
     const observer = new IntersectionObserver(
       () => {
-        if (rafLockRef.current) return;
+        const centerY = window.innerHeight * 0.45; // 🔥 anticipates scroll
+        let closestIndex = lastIndexRef.current;
+        let minDistance = Infinity;
 
-        rafLockRef.current = true;
+        itemRefs.current.forEach((el, index) => {
+          if (!el) return;
 
-        requestAnimationFrame(() => {
-          const centerY = window.innerHeight / 2;
-          let closestIndex = lastIndexRef.current;
-          let minDistance = Infinity;
+          const rect = el.getBoundingClientRect();
+          const elCenter = rect.top + rect.height / 2;
 
-          itemRefs.current.forEach((el, index) => {
-            if (!el) return;
+          // strong bias → switches faster
+          const distance = Math.abs(elCenter - centerY) * 0.7;
 
-            const rect = el.getBoundingClientRect();
-            const elCenter = rect.top + rect.height / 2;
-            const distance = Math.abs(elCenter - centerY);
-
-            if (distance < minDistance) {
-              minDistance = distance;
-              closestIndex = index;
-            }
-          });
-
-          if (closestIndex !== lastIndexRef.current) {
-            lastIndexRef.current = closestIndex;
-            setActiveIndex(closestIndex);
-
-            const el = itemRefs.current[closestIndex];
-            if (el) setPillY(el.offsetTop);
-
-            setPillScale(1.04);
-            setTimeout(() => setPillScale(1), 120);
-
-            audioRef.current?.play().catch(() => {});
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIndex = index;
           }
-
-          rafLockRef.current = false;
         });
+
+        if (closestIndex !== lastIndexRef.current) {
+          lastIndexRef.current = closestIndex;
+          setActiveIndex(closestIndex);
+
+          const el = itemRefs.current[closestIndex];
+          if (el) setPillY(el.offsetTop);
+
+          audioRef.current?.play().catch(() => {});
+        }
       },
       {
-        rootMargin: "-45% 0px -45% 0px",
+        // VERY thin activation zone
+        rootMargin: "-36% 0px -36% 0px",
         threshold: 0,
       }
     );
@@ -119,50 +108,56 @@ const DigitalHealthSection = () => {
           Digital Health Records
         </h2>
         <p className="mt-2 text-lg text-black/70 max-w-xl">
-          A living digital health ecosystem designed for institutions
+          A living digital health ecosystem designed for Institutions
         </p>
       </div>
 
       {/* DESCRIPTION */}
-      <div className="max-w-xl text-gray-700 leading-relaxed space-y-2">
-        <p>
-          KerMedix securely unifies health screenings, clinic visits, chronic
-          condition tracking, vaccination history, and counselling records into
-          a single trusted health profile.
-        </p>
-        <p>
-          Beyond storage, the platform enables faster decisions during
-          emergencies, simplified audits, and deep health trend analysis.
-        </p>
+      <div className="mt-8 space-y-4 text-[16.5px] leading-relaxed text-black/65">
+        <span
+          style={{ fontFamily: "Kalam, 'Comic Sans MS', cursive" }}
+          className="block text-[18px] text-black/60"
+        >
+          <p>
+            KerMedix&apos;s Digital Health Records service enables institutions to
+            securely maintain and analyze worker medical data in real time.
+          </p>
+          <br />
+          <p>
+            The platform supports emergency response, compliance audits, and
+            long-term health trend insights.
+          </p>
+        </span>
       </div>
 
       {/* DIFFERENTIATORS */}
       <div ref={sectionRef}>
-        <h3 className="text-sm uppercase tracking-[0.28em] font-semibold text-black/60 mb-4">
+        <h3 className="text-sm uppercase tracking-[0.7em] font-bold text-black/60 mb-4">
           Key Differentiators
         </h3>
 
-        <div ref={containerRef} className="relative pl-5">
+        <div className="relative pl-5">
 
-          {/* 🔍 GLASS LENS */}
+          {/* GLASS PILL – feather-light motion */}
           <motion.div
-            animate={{ y: pillY, scale: pillScale }}
-            transition={{ type: "spring", stiffness: 360, damping: 34 }}
+            animate={{ y: pillY, scale: 1.035 }}
+            transition={{
+              type: "spring",
+              stiffness: 340,   // quick snap
+              damping: 18,      // effortless feel
+              mass: 0.35,       // light
+            }}
             className="
               absolute left-0
               w-[95%] h-[44px]
               rounded-full
               backdrop-blur-2xl
-              bg-white/42
+              bg-white/45
               border border-white/60
-              shadow-[0_18px_36px_rgba(0,0,0,0.22)]
+              shadow-[0_10px_24px_rgba(0,0,0,0.18)]
               pointer-events-none
             "
-          >
-            <div className="absolute inset-0 rounded-full ring-1 ring-white/60" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/25 via-transparent to-black/5" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#6F4BD8]/25 via-transparent to-[#402EE6]/25" />
-          </motion.div>
+          />
 
           {/* TEXT ROWS */}
           {keyDifferentiators.map((text, index) => (
@@ -174,10 +169,13 @@ const DigitalHealthSection = () => {
             >
               <motion.p
                 animate={{
-                  opacity: activeIndex === index ? 1 : 0.32,
-                  scale: activeIndex === index ? 1.06 : 0.98,
+                  opacity: activeIndex === index ? 1 : 0.3,
+                  scale: activeIndex === index ? 1.07 : 0.96,
                 }}
-                transition={{ duration: 0.18, ease: "easeOut" }}
+                transition={{
+                  duration: 0.085, 
+                  ease: "easeOut",
+                }}
                 className="text-lg font-medium tracking-[-0.01em] text-black"
               >
                 {text}
