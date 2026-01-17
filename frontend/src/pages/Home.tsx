@@ -1,293 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+
+import HeroSection from "@/components/HeroSection";
+import NewsTicker from "@/components/NewsTicker";
+import StatsSection from "@/components/StatsSection";
+import FlowingStats from "@/components/FlowingStats";
+import InteractiveMap from "@/components/InteractiveMap";
+import BentoShowcase from "@/components/BentoShowcase";
+import TestimonialSection from "@/components/TestimonialSection";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import StatsSection from "@/components/StatsSection";
-import FeatureShowcase from "@/components/FeatureShowcase";
-import TestimonialSection from "@/components/TestimonialSection";
-import InteractiveMap from "@/components/InteractiveMap";
-import NewsTicker from "@/components/NewsTicker";
-import BentoShowcase from "@/components/BentoShowcase";
 
-import { useTranslation } from "react-i18next";
+import DigitalHealthSection from "@/components/DigitalHealthSection";
+import ScrollStackFeatures from "@/components/ScrollStackFeatures";
+import ScrollStackShowcase from "@/components/ScrollStackShowcase";
+
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Heart, Users, Clock, CheckCircle, FileText } from "lucide-react";
-import { useMediaQuery } from "react-responsive";
+import { Heart, Users, Clock, FileText } from "lucide-react";
 
 import digitalRecordsImg from "@/assets/digital-records.jpg";
 import healthScreeningImg from "@/assets/health-screening.jpg";
 import telemedicineImg from "@/assets/telemedicine.jpg";
 import vaccinationImg from "@/assets/vaccination.jpg";
 
-import heroBackground from "@/assets/1635203.jpg";
-import heroBackground_L from "@/assets/1635203-L.jpg";
-import heroBackground_R from "@/assets/1635203-R.jpg";
-import ScrollStackFeatures from "@/components/ScrollStackFeatures";
-import DigitalHealthSection from "@/components/DigitalHealthSection";
-import ScrollStack from "@/components/ScrollStack";
-import Lenis from "lenis";
-import FlowingStats from "@/components/FlowingStats";
-
-
-import heroAnimated from "@/assets/overlay.png";
-import ScrollStackShowcase from "@/components/ScrollStackShowcase";
-
-/* ================= HERO CSS ================= */
-const heroCss = `
-.hero-section{
-  position:relative;
-  width:100%;
-  overflow:hidden;
-}
-
-.hero-bg-wrapper{
-  position:absolute;
-  inset:0;
-  padding:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.hero-bg{
-  width:100%;
-  height:90%;
-  border-radius:26px;
-  object-fit:cover;
-}
-
-.hero-anim-wrapper{
-  position:absolute;
-  inset:0;
-  margin:auto;
-  border-radius:36px;
-  overflow:hidden;
-  z-index:5;
-}
-
-.hero-anim-wrapper img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.kermedix-title{
-  font-family: Inter, Poppins, system-ui, sans-serif;
-  font-weight:900;
-  letter-spacing:-0.08em;
-  color:rgba(255,255,255,0.65);
-  text-shadow:
-    0 1px 0 rgba(255,255,255,0.15),
-    0 2px 8px rgba(0,0,0,0.35);
-  pointer-events:none;
-}
-
-
-@media (max-width:768px){
-  .hero-anim-wrapper{
-    width:72vw;
-    height:52vw; 
-    max-height:52vh;
-    aspect-ratio:16/9;
-    border-radius:16px;
-  }
-}
-
-@media (max-width:480px){
-  .hero-anim-wrapper{
-    width:88vw;
-    height:84vw; 
-    max-height:50vh;
-    aspect-ratio:16/9;
-    border-radius:14px;
-  }
-}
-`;
-
-/* ================= TEXT SCRAMBLE ================= */
-const chars = "!<>-_\\/[]{}—=+*^?#________";
-
-
-const DecryptedText = ({ text, start }: { text: string; start: boolean }) => {
-  const [displayed, setDisplayed] = useState("");
-
-  useEffect(() => {
-    if (!start) return;
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayed(
-        text
-          .split("")
-          .map((c, idx) =>
-            idx < i / 2 ? c : chars[Math.floor(Math.random() * chars.length)]
-          )
-          .join("")
-      );
-      i++;
-      if (i > text.length * 2) {
-        setDisplayed(text);
-        clearInterval(interval);
-      }
-    }, 30);
-    return () => clearInterval(interval);
-  }, [text, start]);
-
-  return <span>{displayed}</span>;
-};
-
-
-/* ================= HERO ================= */
-
-const HeroSection = () => {
-  const ref = useRef<HTMLDivElement>(null);
-
-  /* ---------- MOBILE DETECTION (SSR SAFE) ---------- */
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  /* ---------- SCROLL ---------- */
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end end"],
-  });
-
-  const smooth = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
-    mass: 1,
-  });
-
-  /* ---------- SPLIT ---------- */
-  const split = useTransform(smooth, [0, 0.35], [0, 1]);
-
-  const leftX = useTransform(split, [0, 1], ["0%", "-24.5%"]);
-  const rightX = useTransform(split, [0, 1], ["0%", "24.5%"]);
-
-  const textOpacity = useTransform(split, [0, 0.6], [1, 0]);
-  const textScale = useTransform(split, [0, 0.6], [1, 0.9]);
-
-  /* ---------- CENTER IMAGE ---------- */
-  const centerWidth = useTransform(
-    smooth,
-    [0.4, 0.65],
-    isMobile ? ["0%", "100%"] : ["0%", "50%"]
-  );
-
-  const centerOpacity = useTransform(smooth, [0.4, 0.5], [0, 1]);
-
-  /* ---------- FINAL TEXT ---------- */
-  const finalTextOpacity = useTransform(smooth, [0.55, 0.7], [0, 1]);
-  const finalTextY = useTransform(smooth, [0.55, 0.7], ["14%", "0%"]);
-
-  /* ---------- MOBILE SIDE FADE ---------- */
-  const sideOpacity = useTransform(
-    smooth,
-    [0.45, 0.6],
-    isMobile ? [1, 0] : [1, 1]
-  );
-
-  return (
-    <section ref={ref} className="relative h-[260vh] bg-[#F9EFE3]">
-      <div className="sticky top-0 h-screen flex items-center justify-center">
-        <div className="relative w-full max-w-[96%] h-[90%]">
-          <div className="relative w-full h-full overflow-hidden rounded-[28px]">
-
-            {/* LEFT IMAGE */}
-            <motion.div
-              style={{ x: leftX, opacity: sideOpacity }}
-              className="absolute inset-y-0 left-0 w-[50.5%] overflow-hidden rounded-l-[28px]"
-            >
-              <img src={heroBackground_L} className="w-full h-full object-cover" />
-
-              <motion.div
-                style={{ opacity: textOpacity, scale: textScale }}
-                className="absolute inset-0 flex items-center justify-center px-12"
-              >
-                <span className="kermedix-title text-[9vw] whitespace-nowrap">
-                  KERMEDIX
-                </span>
-              </motion.div>
-            </motion.div>
-
-            {/* RIGHT IMAGE */}
-            <motion.div
-              style={{ x: rightX, opacity: sideOpacity }}
-              className="absolute inset-y-0 right-0 w-[50.5%] overflow-hidden rounded-r-[28px]"
-            >
-              <img src={heroBackground_R} className="w-full h-full object-cover" />
-
-              <motion.div
-                style={{ opacity: textOpacity, scale: textScale }}
-                className="absolute inset-0 flex items-center justify-center px-12"
-              >
-                <span className="kermedix-title text-[9vw] whitespace-nowrap">
-                  PLATFORM
-                </span>
-              </motion.div>
-            </motion.div>
-
-            {/* CENTER IMAGE */}
-            <motion.div
-              style={{
-                width: centerWidth,
-                opacity: centerOpacity,
-              }}
-              className="
-                absolute inset-y-0
-                left-1/2 -translate-x-1/2
-                z-20
-                overflow-hidden
-              "
-            >
-              <img src={heroAnimated} className="w-full h-full object-cover" />
-            </motion.div>
-
-            {/* FINAL TEXT */}
-            <motion.div
-              style={{ opacity: finalTextOpacity, y: finalTextY }}
-              className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center pointer-events-none"
-            >
-              <h1 className="kermedix-title text-[18vw] md:text-[12vw] text-white leading-none">
-
-                KERMEDIX
-              </h1>
-
-              <p className="mt-4 text-3xl md:text-5xl font-semibold text-white">
-                Kerala Digital Health Records
-              </p>
-            </motion.div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-
-
 
 
 /* ================= HOME ================= */
 const Home = () => {
   useScrollAnimation();
-  useTranslation();
-
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = heroCss;
-    document.head.appendChild(style);
-    return () => document.head.removeChild(style);
-  }, []);
-
+  
   const keyDifferentiators = [
     "Centralized digital health database",
     "Real-time updates",
