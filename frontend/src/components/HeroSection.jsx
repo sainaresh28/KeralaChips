@@ -1,4 +1,6 @@
 import Lenis from "lenis";
+import { useEffect } from "react";
+
 import {
   motion,
   useScroll,
@@ -330,3 +332,4 @@ const ParallaxImg = ({ className, alt, src, start, end }) => {
     />
   );
 };
+
