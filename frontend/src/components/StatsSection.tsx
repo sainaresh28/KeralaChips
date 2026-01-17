@@ -168,7 +168,7 @@ export default function StatsSection() {
 const css = `
 .stats-section{
   background:#F9EFE3;
-  padding:3rem 0;
+  padding:1rem 0;
   font-family:Inter, sans-serif;
   overflow:hidden;
 }
@@ -232,7 +232,7 @@ const css = `
   display:flex;
   justify-content:center;
   margin-top:3rem;
-  opacity:.35;
+  opacity:.85;
   gap:4vw; 
 }
 
@@ -240,7 +240,7 @@ const css = `
   display:flex;
   font-size:10vw;
   font-weight:800;
-  color:#402EE6;
+  color:#2f18ff;
 }
 
 .letter{display:inline-block}
