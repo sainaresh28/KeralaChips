@@ -20,7 +20,7 @@ export default function FlowingStats() {
     >
       <div
         style={{
-          height: "520px",
+          height: "420px",
           position: "relative",
         }}
       >
