@@ -6,8 +6,90 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 
+/* ---------- Reusable Carousel ---------- */
+const Carousel = ({ items }: { items: any[] }) => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -420 : 420,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  return (
+    <div className="relative">
+      {/* Left Arrow */}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10
+                   backdrop-blur-md bg-white/70 border border-black/20
+                   rounded-full p-3 shadow-lg hover:scale-105 transition"
+      >
+        <ChevronLeft className="w-5 h-5" />
+      </button>
+
+      {/* Carousel */}
+      <div
+        ref={scrollRef}
+        className="flex gap-8 overflow-x-auto scroll-smooth px-16 scrollbar-hide"
+      >
+        {items.map((item) => (
+          <Card
+            key={item.id}
+            className="
+              min-w-[320px] rounded-3xl overflow-hidden
+              border border-black/10
+              bg-white
+              shadow-[0_20px_50px_rgba(0,0,0,0.12)]
+              hover:shadow-[0_30px_70px_rgba(0,0,0,0.18)]
+              transition-all duration-300
+            "
+          >
+            {/* Image */}
+            <div className="relative h-60 overflow-hidden group">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="
+                  w-full h-full object-cover
+                  transition-transform duration-700
+                  group-hover:scale-110
+                "
+              />
+              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition" />
+            </div>
+
+            {/* Content */}
+            <div className="p-5">
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                {item.location}
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      {/* Right Arrow */}
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-10
+                   backdrop-blur-md bg-white/70 border border-black/20
+                   rounded-full p-3 shadow-lg hover:scale-105 transition"
+      >
+        <ChevronRight className="w-5 h-5" />
+      </button>
+    </div>
+  );
+};
+
+/* ---------- Main Gallery ---------- */
 const Gallery = () => {
   const galleries = {
     healthCamps: [
@@ -36,101 +118,50 @@ const Gallery = () => {
     ],
   };
 
-  const renderCarousel = (items: typeof galleries.healthCamps) => {
-    const scrollRef = useRef<HTMLDivElement | null>(null);
-
-    const scroll = (direction: "left" | "right") => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollBy({
-          left: direction === "left" ? -400 : 400,
-          behavior: "smooth",
-        });
-      }
-    };
-
-    return (
-      <div className="relative">
-        {/* Left Arrow */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-black rounded-full p-2 shadow-md hover:bg-gray-100"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-
-        {/* Scrollable Carousel */}
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto gap-6 scroll-smooth px-10 scrollbar-hide"
-        >
-          {items.map((item) => (
-            <Card
-              key={item.id}
-              className="min-w-[300px] border-2 border-black overflow-hidden hover:shadow-xl transition-all duration-300"
-            >
-              <div className="h-56 border-b-2 border-black overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.location}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* Right Arrow */}
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-black rounded-full p-2 shadow-md hover:bg-gray-100"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-    );
-  };
-
   return (
-    <div className="min-h-[80vh] bg-background py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[85vh] bg-[#F9EFE3] py-20">
+      <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Photo Gallery</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore our health initiatives, facilities, and community programs through images
+     <div className="text-center mt-10 mb-14">
+
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
+            Photo Gallery
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            A glimpse into our healthcare initiatives, vaccination programs,
+            and facilities
           </p>
         </div>
 
-        {/* Tabs Section */}
-        <Tabs defaultValue="healthCamps" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 border-2 border-black bg-white p-1">
-            <TabsTrigger
-              value="healthCamps"
-              className="data-[state=active]:bg-black data-[state=active]:text-white font-medium"
-            >
-              Health Camps
-            </TabsTrigger>
-            <TabsTrigger
-              value="vaccination"
-              className="data-[state=active]:bg-black data-[state=active]:text-white font-medium"
-            >
-              Vaccination
-            </TabsTrigger>
-            <TabsTrigger
-              value="facilities"
-              className="data-[state=active]:bg-black data-[state=active]:text-white font-medium"
-            >
-              Facilities
-            </TabsTrigger>
+        {/* Tabs */}
+        <Tabs defaultValue="healthCamps">
+          <TabsList className="grid grid-cols-3 max-w-xl mx-auto mb-12 rounded-full bg-white border border-black/20 p-1">
+            {["healthCamps", "vaccination", "facilities"].map((tab) => (
+              <TabsTrigger
+                key={tab}
+                value={tab}
+                className="
+                  rounded-full font-medium
+                  data-[state=active]:bg-black
+                  data-[state=active]:text-white
+                "
+              >
+                {tab === "healthCamps"
+                  ? "Health Camps"
+                  : tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </TabsTrigger>
+            ))}
           </TabsList>
 
-          <TabsContent value="healthCamps">{renderCarousel(galleries.healthCamps)}</TabsContent>
-          <TabsContent value="vaccination">{renderCarousel(galleries.vaccination)}</TabsContent>
-          <TabsContent value="facilities">{renderCarousel(galleries.facilities)}</TabsContent>
+          <TabsContent value="healthCamps">
+            <Carousel items={galleries.healthCamps} />
+          </TabsContent>
+          <TabsContent value="vaccination">
+            <Carousel items={galleries.vaccination} />
+          </TabsContent>
+          <TabsContent value="facilities">
+            <Carousel items={galleries.facilities} />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
