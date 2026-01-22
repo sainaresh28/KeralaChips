@@ -9,6 +9,7 @@ import InteractiveMap from "@/components/InteractiveMap";
 import BentoShowcase from "@/components/BentoShowcase";
 import TestimonialSection from "@/components/TestimonialSection";
 
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -83,6 +84,7 @@ const Home = () => {
 
 
       <HeroSection />
+
       <NewsTicker />
 
 {/* ================= MAIN CONTENT ================= */}
@@ -91,68 +93,68 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-            {/* Enquiry Form */}
+              {/* Enquiry Form */}
             <div className="lg:col-span-1">
-                <Card className="sticky top-8 rounded-[28px] border-[3px] border-[#000000] shadow-[0_25px_60px_rgba(0,0,0,0.18)] overflow-hidden bg-[#FBF7F2]">
-                  
-                  {/* Header */}
-                  <CardHeader className="bg-gradient-to-br from-[#0B0B0F] to-[#1A1A22] px-8 py-6">
-                    <CardTitle className="text-2xl font-bold text-white">
-                      Enquire Now
-                    </CardTitle>
+              <Card className="sticky top-8 rounded-[28px] border-[3px] border-[#000000] shadow-[0_25px_60px_rgba(0,0,0,0.18)] overflow-hidden bg-[#FBF7F2]">
 
-                    <p className="text-gray-300 text-sm mt-1">
-                      Let&apos;s discuss your requirements
-                    </p>
+                {/* Header */}
+                <CardHeader className="bg-gradient-to-br from-[#0B0B0F] to-[#1A1A22] px-8 py-6">
+                  <CardTitle className="text-2xl font-bold text-white">
+                    Enquire Now
+                  </CardTitle>
 
-                    <span className="block w-20 h-[8px] bg-[#f5c945] rounded-full mt-3" />
-                  </CardHeader>
+                  <p className="text-gray-300 text-sm mt-1">
+                    Let&apos;s discuss your requirements
+                  </p>
 
-                  {/* Form */}
-                  <CardContent className="p-8 space-y-5">
-                    {[
-                      "Your Name",
-                      "Email Address",
-                      "Phone Number",
-                      "Organization",
-                      "Location",
-                    ].map((placeholder) => (
-                      <input
-                        key={placeholder}
-                        type="text"
-                        placeholder={placeholder}
-                        className="w-full h-12 px-4 rounded-xl border-2 border-[#010105]
-                                  text-gray-700 placeholder-gray-400
-                                  focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
-                                  transition"
-                      />
-                    ))}
+                  <span className="block w-20 h-[8px] bg-[#f5c945] rounded-full mt-3" />
+                </CardHeader>
 
-                    <textarea
-                      rows={4}
-                      placeholder="Your Message"
-                      className="w-full px-4 py-3 rounded-xl border-2 border-[#090815]
-                                text-gray-700 placeholder-gray-400 resize-none
+                {/* Form */}
+                <CardContent className="p-5 space-y-6">
+                  {[
+                    "Your Name",
+                    "Email Address",
+                    "Phone Number",
+                    "Organization",
+                    "Location",
+                  ].map((placeholder) => (
+                    <input
+                      key={placeholder}
+                      type="text"
+                      placeholder={placeholder}
+                      className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                                text-gray-700 placeholder-gray-400
                                 focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
                                 transition"
                     />
+                  ))}
 
-                    {/* Button */}
-                    <button
-                      className="w-full h-14 mt-2 rounded-xl 
-                                bg-gradient-to-r from-[#5A4FD9] to-[#1f11eb]
-                                text-white font-semibold text-lg
-                                shadow-[0_6px_0_#F4C430]
-                                hover:translate-y-[1px]
-                                hover:shadow-[0_4px_0_#F4C430]
-                                active:translate-y-[2px]
-                                transition-all duration-150"
-                    >
-                      Submit Enquiry
-                    </button>
-                  </CardContent>
-                </Card>
+                  <textarea
+                    rows={5}
+                    placeholder="Your Message"
+                    className="w-full px-5 py-4 rounded-xl border-2 border-[#090815]
+                              text-gray-700 placeholder-gray-400 resize-none
+                              focus:outline-none focus:ring-2 focus:ring-[#7B6EF6]/40
+                              transition"
+                  />
 
+                  {/* Button */}
+                  <button
+                    className="w-full h-16 mt-4 rounded-xl 
+                              bg-[#1f11eb]
+
+                              text-white font-semibold text-lg
+                              shadow-[0_6px_0_#F4C430]
+                              hover:translate-y-[1px]
+                              hover:shadow-[0_4px_0_#F4C430]
+                              active:translate-y-[2px]
+                              transition-all duration-150"
+                  >
+                    Submit Enquiry
+                  </button>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Right Content */}
@@ -160,76 +162,70 @@ const Home = () => {
 
              <DigitalHealthSection />
 
-              {/* Features */}
-              <div>
-                <h3 className="text-2xl font-bold text-black mb-8">
-                  Key Features
-                </h3>
-                <ScrollStackFeatures features={features} />
-               </div>
+                  
+            {/* CTA */}
+            <div
+              className="
+                relative
+                overflow-hidden
+                rounded-[24px]
+                border-2 border-black
+                bg-[#F9EFE3]
+                p-6
+                text-center
+                shadow-[0_20px_55px_rgba(0,0,0,0.24)]
+                transition-transform
+                duration-300
+                hover:-translate-y-1
+              "
+            >
+              {/* Accent Line */}
+              <div className="w-12 h-[3px] bg-black mx-auto mb-4 rounded-full" />
 
-              {/* CTA */}
-              <div
-                className="
-                  relative
-                  overflow-hidden
-                  rounded-[28px]
-                  border-2 border-black
-                  bg-[#F9EFE3]
-                  p-10
-                  text-center
-                  shadow-[0_28px_70px_rgba(0,0,0,0.25)]
-                  transition-transform
-                  duration-300
-                  hover:-translate-y-1
-                "
+              <h3
+                className="text-2xl mb-3"
+                style={{
+                  fontFamily: "Clash Display, sans-serif",
+                  fontWeight: 600,
+                  letterSpacing: "-0.02em",
+                }}
               >
-                {/* Accent Line */}
-                <div className="w-16 h-[4px] bg-black mx-auto mb-6 rounded-full" />
+                Ready to Get Started?
+              </h3>
 
-                <h3
-                  className="text-3xl mb-4"
-                  style={{
-                    fontFamily: "Clash Display, sans-serif",
-                    fontWeight: 600,
-                    letterSpacing: "-0.02em",
-                  }}
+              <p
+                className="text-sm text-gray-700 max-w-xl mx-auto mb-6"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                Transform your healthcare management with our secure, scalable
+                digital health platform.
+              </p>
+
+              <Link to="/register">
+                <Button
+                  className="
+                    px-8
+                    py-3
+                    text-sm
+                    font-semibold
+                    rounded-lg
+                    bg-black
+                    text-white
+                    border-2
+                    border-black
+                    shadow-[0_6px_0_#FFCC33]
+                    transition-all
+                    duration-150
+                    hover:translate-y-[1px]
+                    hover:shadow-[0_4px_0_#FFCC33]
+                    active:translate-y-[2px]
+                  "
                 >
-                  Ready to Get Started?
-                </h3>
+                  Make Appointment
+                </Button>
+              </Link>
+            </div>
 
-                <p
-                  className="text-lg text-gray-700 max-w-xl mx-auto mb-8"
-                  style={{ fontFamily: "Inter, sans-serif" }}
-                >
-                  Transform your healthcare management with our secure, scalable
-                  digital health platform.
-                </p>
-
-                <Link to="/register">
-                  <Button
-                    className="
-                      px-10
-                      py-4
-                      text-lg
-                      font-semibold
-                      rounded-xl
-                      bg-black
-                      text-white
-                      border-2
-                      border-black
-                      shadow-[0_8px_0_#FFCC33]
-                      transition-all
-                      duration-150
-                      hover:translate-y-[1px]
-                      hover:shadow-[0_6px_0_#FFCC33]
-                      active:translate-y-[2px]
-                    "
-                  >
-                    Make Appointment
-                  </Button>
-                </Link>
-              </div>
 
             </div>
           </div>
