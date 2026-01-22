@@ -6,7 +6,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
 import { Phone, MapPin, Mail, ChevronDown, X } from "lucide-react";
 
-import { User, Users, Shield, UserPlus} from 'lucide-react';
+import { Home, User, Users, Shield, UserPlus} from 'lucide-react';
 import { Stethoscope } from 'lucide-react'; 
 import {
   DropdownMenu,
@@ -14,6 +14,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+
 import logoImage from '@/assets/logo.png'; 
 
 import { motion, useMotionValue } from "framer-motion";
@@ -58,9 +60,151 @@ const logout = () => {};
     { name: "Health Forms", href: "/downloads/forms" },
     { name: "Reports", href: "/downloads/reports" },
     { name: "Certificates", href: "/downloads/certificates" },
+
   ];
-const orangePortalBtn =
-    "bg-orange-500 hover:bg-orange-600 text-black font-extrabold tracking-wide border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:scale-105 transition-all font-[Poppins]";
+
+  
+      const orangePortalBtn =
+        "bg-orange-500 hover:bg-orange-600 text-black font-extrabold tracking-wide border-2 border-black shadow-[4px_4px_0px_#000] hover:shadow-[6px_6px_0px_#000] hover:scale-105 transition-all font-[Poppins]";
+
+      const UserPortalDropdown = ({
+        onItemClick,
+      }: {
+        onItemClick?: () => void;
+      }) => (
+        <DropdownMenu modal={false}>
+          <DropdownMenuTrigger asChild>
+            <Button className={`w-full ${orangePortalBtn}`}>
+              User Portal <ChevronDown className="ml-1 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        side="bottom"
+        align="end"
+        sideOffset={12}
+        className="
+          w-72
+          rounded-2xl
+          bg-white
+          border border-gray-200
+          shadow-[0_20px_40px_rgba(0,0,0,0.12)]
+          p-3
+          z-[9999]
+        "
+      >
+        {/* ========= NAVIGATION ========= */}
+        <div className="space-y-1">
+          <p className="px-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
+            Navigation
+          </p>
+
+          <DropdownMenuItem asChild onSelect={onItemClick}>
+            <Link
+              to="/"
+              className="
+                flex items-center gap-3 px-4 py-2.5 rounded-xl
+                text-sm font-medium text-gray-900
+                hover:bg-gray-100
+              "
+            >
+              <Home className="w-4 h-4 text-gray-600" />
+              Home
+            </Link>
+          </DropdownMenuItem>
+        </div>
+
+        <div className="my-3 h-px bg-gray-200" />
+
+        {/* ========= USER ACCESS ========= */}
+        <div className="space-y-1">
+          <p className="px-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
+            User Access
+          </p>
+
+          <DropdownMenuItem asChild onSelect={onItemClick}>
+            <Link
+              to="/login?role=migrant"
+              className="
+                flex items-center gap-3 px-4 py-2.5 rounded-xl
+                text-sm text-gray-800
+                hover:bg-gray-100
+              "
+            >
+              <Users className="w-4 h-4 text-gray-600" />
+              Migrant Login
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild onSelect={onItemClick}>
+            <Link
+              to="/login?role=doctor"
+              className="
+                flex items-center gap-3 px-4 py-2.5 rounded-xl
+                text-sm text-gray-800
+                hover:bg-gray-100
+              "
+            >
+              <Stethoscope className="w-4 h-4 text-gray-600" />
+              Doctor Login
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem asChild onSelect={onItemClick}>
+            <Link
+              to="/login?role=admin"
+              className="
+                flex items-center gap-3 px-4 py-2.5 rounded-xl
+                text-sm text-gray-800
+                hover:bg-gray-100
+              "
+            >
+              <Shield className="w-4 h-4 text-gray-600" />
+              Admin Login
+            </Link>
+          </DropdownMenuItem>
+
+          {/* REGISTER — PRIMARY ACTION */}
+          <DropdownMenuItem asChild onSelect={onItemClick}>
+            <Link
+              to="/register"
+              className="
+                flex items-center gap-3 px-4 py-2.5 rounded-xl
+                text-sm font-semibold
+                text-[#1f11eb]
+                hover:bg-[#1f11eb]/10
+              "
+            >
+              <UserPlus className="w-4 h-4" />
+              Register New User
+            </Link>
+          </DropdownMenuItem>
+        </div>
+
+        <div className="my-4 h-px bg-gray-200" />
+
+        {/* ========= LANGUAGE ========= */}
+        <div>
+          <p className="px-3 text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
+            Language
+          </p>
+
+          <DropdownMenuItem
+            onSelect={(e) => e.preventDefault()}
+            className="focus:bg-transparent cursor-default"
+          >
+            <div className="w-full flex justify-center py-1">
+              <LanguageSwitcher />
+            </div>
+          </DropdownMenuItem>
+        </div>
+      </DropdownMenuContent>
+
+
+
+        </DropdownMenu>
+      );
+
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#F9EFE3" }}>
@@ -75,9 +219,6 @@ const orangePortalBtn =
             lg:px-8 lg:pt-4
           "
         >
-
-
-
 
 
         {/* Desktop capsule header */}
@@ -231,187 +372,189 @@ const orangePortalBtn =
           </nav>
         </div>
 
-        {/* Mobile header - unchanged */}
-        <nav className="lg:hidden shadow-sm sticky top-0 z-50 bg-transparent">
 
+
+
+         
+        {/* ================= MOBILE NAVBAR ================= */}
+        <nav className="lg:hidden sticky top-0 z-50 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="flex justify-between items-center h-20">
-              {/* Logo */}
-              <div className="flex items-center">
-                <Link to="/" className="flex items-center space-x-3">
-                  <div className="w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-white">
-                    <img 
-                      src={logoImage} 
-                      alt="KerMedix Logo" 
-                      className="min-w-full min-h-full object-cover"
-                    />
-                  </div>
-                  <div className="text-l font-bold text-white lg:text-black">
-                    KerMedix •
-                  </div>
-                  <div className="text-l font-bold text-white lg:text-black">
-                  Health Services
-                  </div>
+          <div className="flex justify-between items-center h-20">
 
-                    </Link>
-                  </div>
-
-                  {/* Mobile Hamburger */}
-                  <div className="flex items-center">
-                  <button
-                    onClick={() => setMobileMenuOpen(true)}
-                    className="
-                      text-white border-2 border-white
-                      lg:text-black lg:border-black
-                      p-2 rounded-md
-                    "
-                  >
-                    ☰
-                  </button>
-
-              </div>
-            </div>
-
-            {/* Mobile Drawer */}
-            <div className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300`}>
-              <div className="w-72 bg-white h-full shadow-lg p-6 overflow-y-auto">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="text-xl font-bold text-black">KerMedix Menu</div>
-                  <button onClick={() => setMobileMenuOpen(false)} className="text-black p-2 rounded-md border border-black">
-                    <X className="h-5 w-5" />
-                  </button>
-                </div>
-
-                <div className="space-y-4">
-                  {/* Navigation */}
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700">Navigation</h4>
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className="block py-2 px-2 text-black hover:bg-gray-100 rounded"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Services */}
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700">Services</h4>
-                    {services.map((s) => (
-                      <Link
-                        key={s.name}
-                        to={s.href}
-                        className="block py-2 px-2 text-black hover:bg-gray-100 rounded"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {s.name}
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Miscellaneous */}
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700">Miscellaneous</h4>
-                    {miscellaneous.map((m) => (
-                      <Link
-                        key={m.name}
-                        to={m.href}
-                        className="block py-2 px-2 text-black hover:bg-gray-100 rounded"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {m.name}
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Downloads */}
-                  <div>
-                    <h4 className="text-sm font-semibold mb-2 text-gray-700">Downloads</h4>
-                    {downloads.map((d) => (
-                      <Link
-                        key={d.name}
-                        to={d.href}
-                        className="block py-2 px-2 text-black hover:bg-gray-100 rounded"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {d.name}
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Language & User Portal */}
-                  <div className="mt-6 border-t border-gray-300 pt-4 space-y-4">
-                    <LanguageSwitcher />
-
-                    {user ? (
-                      // User is logged in
-                      <div className="flex flex-col items-start gap-2">
-                        <span className="font-medium text-black">
-                          {user.name} - <span className="text-gray-600">Logged in as {user.role}</span>
-                        </span>
-                        <Button
-                          variant="outline"
-                          className="w-full border-2 border-black text-black hover:bg-black hover:text-white"
-                          onClick={logout}
-                        >
-                          Logout
-                        </Button>
-                      </div>
-                    ) : (
-                      // User is not logged in
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                      <Button className={`w-full ${orangePortalBtn}`}>
-                        User Portal <ChevronDown className="ml-1 h-4 w-4" />
-                      </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="bg-white border-2 border-black z-50 w-full">
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/login?role=migrant"
-                              className="text-black hover:bg-gray-100 cursor-pointer font-medium"
-                            >
-                              Migrant Login
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/login?role=doctor"
-                              className="text-black hover:bg-gray-100 cursor-pointer font-medium"
-                            >
-                              Doctor Login
-                            </Link>
-                          </DropdownMenuItem>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/login?role=admin"
-                              className="text-black hover:bg-gray-100 cursor-pointer font-medium"
-                            >
-                              Admin Login
-                            </Link>
-                          </DropdownMenuItem>
-                          <div className="border-t border-gray-300 my-1"></div>
-                          <DropdownMenuItem asChild>
-                            <Link
-                              to="/register"
-                              className="text-black hover:bg-gray-100 cursor-pointer font-medium"
-                            >
-                              Register New User
-                            </Link>
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Logo */}
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-14 h-14 rounded-full overflow-hidden bg-white shrink-0">
+            <img
+              src={logoImage}
+              alt="KerMedix Logo"
+              className="w-full h-full object-cover"
+            />
           </div>
-        </nav>
+
+          <div className="flex flex-col justify-center leading-none">
+            <span
+              className="
+                text-[20px]
+                font-extrabold
+                tracking-tight
+                text-white
+              "
+            >
+              KerMedix
+            </span>
+
+          </div>
+        </Link>
+
+
+
+    {/* RIGHT SIDE ACTIONS */}
+    <div className="flex items-center gap-2">
+
+      {/* USER PORTAL */}
+      <UserPortalDropdown onItemClick={() => setMobileMenuOpen(false)} />
+
+      {/* HAMBURGER */}
+      <button
+        onClick={() => setMobileMenuOpen(true)}
+        className="text-white border-2 border-white p-2 rounded-md"
+      >
+        ☰
+        
+      </button>
+
+    </div>
+  </div>
+</div>
+
+  {/* ================= MOBILE DRAWER ================= */}
+  <div
+    className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-80 z-50 transform ${
+      mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+    } transition-transform duration-300`}
+    
+  >
+    
+    <div className="w-72 bg-white h-full shadow-lg p-6 overflow-y-auto">
+
+      {/* ===== HEADER (UNCHANGED AS REQUESTED) ===== */}
+      <div className="flex justify-between items-center mb-6">
+        <div className="text-xl font-bold text-black">KerMedix Menu</div>
+        <button
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-black p-2 rounded-md border border-black"
+        >
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+
+      {/* ===== CONTENT ===== */}
+      <div className="space-y-8">
+                
+      <div className="mt-6"> <UserPortalDropdown onItemClick={() => setMobileMenuOpen(false)} /></div>
+
+
+
+
+        {/* Navigation */}
+        <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+            Navigation
+          </p>
+
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="
+                flex items-center gap-4 px-4 py-3 rounded-xl
+                bg-white border shadow-sm
+                hover:shadow-md active:scale-[0.98]
+                transition
+              "
+            >
+              <Users className="w-4 h-4 text-[#355f4a]" />
+              <span className="font-medium text-black">{item.name}</span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Services */}
+        <div className="bg-emerald-50 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-emerald-700 uppercase tracking-wide">
+            Services
+          </p>
+
+          {services.map((s) => (
+            <Link
+              key={s.name}
+              to={s.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="
+                flex items-center gap-4 px-4 py-3 rounded-xl
+                bg-white border border-emerald-200
+                hover:bg-emerald-100 transition
+              "
+            >
+              <Stethoscope className="w-4 h-4 text-emerald-600" />
+              <span className="text-black">{s.name}</span>
+            </Link>
+          ))}
+        </div>
+
+        {/* Miscellaneous */}
+        <div className="bg-gray-100 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-gray-600 uppercase tracking-wide">
+            Miscellaneous
+          </p>
+
+          {miscellaneous.map((m) => (
+            <Link
+              key={m.name}
+              to={m.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="
+                flex items-center justify-between px-4 py-3 rounded-xl
+                bg-white border hover:bg-gray-50 transition
+              "
+            >
+              <span className="text-black">{m.name}</span>
+              <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" />
+            </Link>
+          ))}
+        </div>
+
+        {/* Downloads */}
+        <div className="bg-slate-50 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">
+            Downloads
+          </p>
+
+          {downloads.map((d) => (
+            <Link
+              key={d.name}
+              to={d.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="
+                flex items-center gap-4 px-4 py-3 rounded-xl
+                bg-white border hover:bg-slate-100 transition
+              "
+            >
+              <Shield className="w-4 h-4 text-slate-600" />
+              <span className="text-black">{d.name}</span>
+            </Link>
+          ))}
+        </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+      
       </header>
 
       <main className="flex-grow">{children}</main>
