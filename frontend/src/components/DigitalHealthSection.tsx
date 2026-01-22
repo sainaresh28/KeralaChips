@@ -36,7 +36,7 @@ const DigitalHealthSection = () => {
     audioRef.current = audio;
   }, []);
 
-  /* ---------- RESET ON EXIT ---------- */
+
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -55,7 +55,7 @@ const DigitalHealthSection = () => {
     return () => resetObserver.disconnect();
   }, []);
 
-  /* ---------- STEP ENGINE (ULTRA RESPONSIVE) ---------- */
+  /* ---------- STEP ENGINE ---------- */
   useEffect(() => {
     const observer = new IntersectionObserver(
       () => {
@@ -89,7 +89,7 @@ const DigitalHealthSection = () => {
         }
       },
       {
-        // VERY thin activation zone
+   
         rootMargin: "-36% 0px -36% 0px",
         threshold: 0,
       }
@@ -107,9 +107,7 @@ const DigitalHealthSection = () => {
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-[-0.03em] text-black">
           Digital Health Records
         </h2>
-        <p className="mt-2 text-lg text-black/70 max-w-xl">
-          A living digital health ecosystem designed for Institutions
-        </p>
+ 
       </div>
 
       {/* DESCRIPTION */}
@@ -138,14 +136,14 @@ const DigitalHealthSection = () => {
 
         <div className="relative pl-5">
 
-          {/* GLASS PILL – feather-light motion */}
+          {/* GLASS PILL  */}
           <motion.div
             animate={{ y: pillY, scale: 1.035 }}
             transition={{
               type: "spring",
-              stiffness: 340,   // quick snap
-              damping: 18,      // effortless feel
-              mass: 0.35,       // light
+              stiffness: 340,   
+              damping: 18,     
+              mass: 0.35,      
             }}
             className="
               absolute left-0
@@ -173,7 +171,7 @@ const DigitalHealthSection = () => {
                   scale: activeIndex === index ? 1.07 : 0.96,
                 }}
                 transition={{
-                  duration: 0.085, 
+                  duration: 0.085,
                   ease: "easeOut",
                 }}
                 className="text-lg font-medium tracking-[-0.01em] text-black"
