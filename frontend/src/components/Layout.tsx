@@ -29,6 +29,15 @@ const logout = () => {};
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const onScroll = () => setScrolled(window.scrollY > 10);
+  window.addEventListener("scroll", onScroll);
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
+
+
   if (location.pathname.startsWith('/dashboard')) {
     return <>{children}</>;
   }
@@ -211,19 +220,23 @@ const logout = () => {};
 
       {/* Header  */}
         <header
-          className="
+          className={`
             relative lg:fixed
             top-0 left-0 w-full
             z-50
-            bg-gradient-to-r
-            from-[#1b5338]
-            via-[#24583b]
-            to-[#2e5a44]
-            lg:bg-transparent
-            lg:px-8 lg:pt-4
-          "
-        >
+            transition-all duration-500 ease-in-out
 
+            ${
+              scrolled
+                ? "lg:bg-transparent"
+                : "bg-gradient-to-r from-[#1b5338] via-[#24583b] to-[#2e5a44]"
+            }
+
+            lg:px-8
+            lg:pt-4
+            lg:pb-4
+          `}
+        >
 
         {/* Desktop capsule header */}
         <div className="hidden lg:block">
@@ -376,9 +389,6 @@ const logout = () => {};
           </nav>
         </div>
 
-
-
-
          
         {/* ================= MOBILE NAVBAR ================= */}
         <nav className="lg:hidden sticky top-0 z-50 bg-transparent">
@@ -386,7 +396,7 @@ const logout = () => {};
           <div className="flex justify-between items-center h-20">
 
             {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+       <Link to="/" className="flex items-center gap-2">
           <div className="w-14 h-14 rounded-full overflow-hidden bg-white shrink-0">
             <img
               src={logoImage}
@@ -582,7 +592,6 @@ const logout = () => {};
             });
           };
 
-        
           return (
             <>
               {/*Animated Background Grid */}
