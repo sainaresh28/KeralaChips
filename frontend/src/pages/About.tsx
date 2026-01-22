@@ -1,108 +1,202 @@
 const About = () => {
   return (
-    <div className="min-h-[80vh] bg-background py-16">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
+    <section
+      className="min-h-[85vh] pt-28 pb-24"
+      style={{ backgroundColor: "#F9EFE3" }}
+    >
+      <div className="max-w-6xl mx-auto px-4">
+
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h1
+            className="text-5xl font-extrabold mb-6 tracking-tight"
+            style={{ color: "#000000" }}
+          >
             About KerMedix
           </h1>
-          <p className="text-xl text-muted-foreground">
-            Digital Health Record Management System for Migrant Workers
+
+          <p
+            className="text-lg max-w-3xl mx-auto"
+            style={{ color: "#000000" }}
+          >
+            A secure digital health record management system dedicated to improving
+            healthcare access, continuity, and equity for migrant workers.
           </p>
+
+          <div className="w-20 h-1 mx-auto mt-8 rounded-full" style={{ backgroundColor: "#FFCC33" }} />
         </div>
 
-        <div className="space-y-8">
-          <section className="bg-card border border-border p-8 rounded-sm">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
+        <div className="space-y-16">
+
+          {/* Purpose */}
+          <section className="bg-white rounded-3xl p-12 border border-black/10">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{ color: "#000000" }}
+            >
               Project Purpose
             </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Kerala hosts a significant population of migrant workers who contribute immensely to the state's economy. 
-              However, these workers often face challenges in accessing proper healthcare services and maintaining 
-              consistent health records. Our Digital Health Record Management System aims to bridge this gap by 
-              providing a centralized, accessible platform for managing health information.
+            <p
+              className="leading-relaxed text-base"
+              style={{ color: "#402EE6" }}
+            >
+              Migrant workers form the backbone of Kerala’s workforce, yet many lack
+              consistent access to healthcare and medical documentation. KerMedix
+              addresses this challenge by enabling a centralized, portable, and secure
+              digital health record system that follows workers wherever they go.
             </p>
           </section>
 
-          <section className="bg-card border border-border p-8 rounded-sm">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Why Migrant Workers Need Health Records
+          {/* Why Records */}
+          <section className="bg-white rounded-3xl p-12 border border-black/10">
+            <h2
+              className="text-2xl font-bold mb-10"
+              style={{ color: "#000000" }}
+            >
+              Why Health Records Matter
             </h2>
-            <div className="space-y-4 text-muted-foreground">
-              <p>• <strong>Continuity of Care:</strong> Maintaining medical history across different healthcare providers</p>
-              <p>• <strong>Emergency Access:</strong> Quick access to critical health information during emergencies</p>
-              <p>• <strong>Disease Prevention:</strong> Tracking vaccinations and preventive care measures</p>
-              <p>• <strong>Treatment Compliance:</strong> Ensuring proper follow-up and medication adherence</p>
-              <p>• <strong>Legal Documentation:</strong> Providing proof of medical treatments for insurance and legal purposes</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                ["Continuity of Care", "Consistent medical history across providers"],
+                ["Emergency Access", "Instant access to critical health data"],
+                ["Disease Prevention", "Vaccination and preventive care tracking"],
+                ["Treatment Compliance", "Follow-ups and medication adherence"],
+                ["Legal Documentation", "Insurance and treatment proof"],
+              ].map(([title, desc]) => (
+                <div
+                  key={title}
+                  className="p-6 rounded-2xl border"
+                  style={{
+                    backgroundColor: "#F9EFE3",
+                    borderColor: "#FFCC33",
+                  }}
+                >
+                  <h4
+                    className="font-semibold mb-2"
+                    style={{ color: "#000000" }}
+                  >
+                    {title}
+                  </h4>
+                  <p
+                    className="text-sm"
+                    style={{ color: "#402EE6" }}
+                  >
+                    {desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </section>
 
-          <section className="bg-card border border-border p-8 rounded-sm">
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              Supporting United Nations Sustainable Development Goals
+          {/* SDGs */}
+          <section className="bg-white rounded-3xl p-12 border border-black/10">
+            <h2
+              className="text-2xl font-bold mb-12 text-center"
+              style={{ color: "#000000" }}
+            >
+              Alignment with UN Sustainable Development Goals
             </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="border border-border p-6 rounded-sm">
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  SDG 3: Good Health & Well-being
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Ensuring healthy lives and promoting well-being for all migrant workers at all ages through 
-                  accessible healthcare records and improved medical care continuity.
-                </p>
-              </div>
 
-              <div className="border border-border p-6 rounded-sm">
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  SDG 10: Reduced Inequalities
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Reducing inequality within and among communities by providing equal healthcare access 
-                  and eliminating discrimination in medical services for migrant populations.
-                </p>
-              </div>
-
-              <div className="border border-border p-6 rounded-sm">
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  SDG 16: Peace, Justice & Strong Institutions
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Building effective, accountable and inclusive healthcare institutions that ensure 
-                  transparent health governance and protect the rights of all workers.
-                </p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {[
+                {
+                  title: "SDG 3",
+                  subtitle: "Good Health & Well-being",
+                  desc: "Improving healthcare continuity and access for migrant workers.",
+                },
+                {
+                  title: "SDG 10",
+                  subtitle: "Reduced Inequalities",
+                  desc: "Ensuring equal healthcare opportunities regardless of social status.",
+                },
+                {
+                  title: "SDG 16",
+                  subtitle: "Strong Institutions",
+                  desc: "Promoting transparent, accountable healthcare governance.",
+                },
+              ].map((sdg) => (
+                <div
+                  key={sdg.title}
+                  className="rounded-2xl p-6 text-center border"
+                  style={{ borderColor: "#FFCC33" }}
+                >
+                  <h3
+                    className="text-xl font-bold mb-1"
+                    style={{ color: "#000000" }}
+                  >
+                    {sdg.title}
+                  </h3>
+                  <p
+                    className="font-semibold mb-2"
+                    style={{ color: "#402EE6" }}
+                  >
+                    {sdg.subtitle}
+                  </p>
+                  <p
+                    className="text-sm"
+                    style={{ color: "#402EE6" }}
+                  >
+                    {sdg.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </section>
 
-          <section className="bg-card border border-border p-8 rounded-sm">
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
+          {/* Benefits */}
+          <section className="bg-white rounded-3xl p-12 border border-black/10">
+            <h2
+              className="text-2xl font-bold mb-10"
+              style={{ color: "#000000" }}
+            >
               System Benefits
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-muted-foreground">
-              <div>
-                <h4 className="font-semibold text-foreground mb-2">For Workers:</h4>
-                <ul className="space-y-1 text-sm">
-                  <li>• Access to personal health history</li>
-                  <li>• Portability across healthcare providers</li>
-                  <li>• Emergency medical information access</li>
-                  <li>• Vaccination and checkup reminders</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-2">For Healthcare Providers:</h4>
-                <ul className="space-y-1 text-sm">
-                  <li>• Complete patient medical history</li>
-                  <li>• Improved diagnosis accuracy</li>
-                  <li>• Reduced duplicate testing</li>
-                  <li>• Better treatment outcomes</li>
-                </ul>
-              </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {[
+                {
+                  title: "For Workers",
+                  items: [
+                    "Secure access to personal health records",
+                    "Portability across healthcare providers",
+                    "Emergency medical information availability",
+                    "Vaccination and check-up reminders",
+                  ],
+                },
+                {
+                  title: "For Healthcare Providers",
+                  items: [
+                    "Complete patient medical history",
+                    "Improved diagnostic accuracy",
+                    "Reduced redundant testing",
+                    "Enhanced treatment outcomes",
+                  ],
+                },
+              ].map((group) => (
+                <div key={group.title}>
+                  <h4
+                    className="font-semibold mb-4"
+                    style={{ color: "#000000" }}
+                  >
+                    {group.title}
+                  </h4>
+                  <ul
+                    className="space-y-3 text-sm"
+                    style={{ color: "#402EE6" }}
+                  >
+                    {group.items.map((item) => (
+                      <li key={item}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </section>
+
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
