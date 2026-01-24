@@ -154,6 +154,7 @@ const InteractiveMap = () => {
                         text-[#F9EFE3]
                         hover:brightness-110
                         hover:scale-[1.01]
+                        hover:text-[#ff6200]
                         hover:shadow-[0_12px_30px_rgba(64,46,230,0.45)]
                         active:scale-[0.97]
                         ${
