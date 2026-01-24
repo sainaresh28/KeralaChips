@@ -469,12 +469,9 @@ const logout = () => {};
                 
       <div className="mt-6"> <UserPortalDropdown onItemClick={() => setMobileMenuOpen(false)} /></div>
 
-
-
-
         {/* Navigation */}
-        <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
-          <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+        <div className="bg-emerald-50 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-emerald-700 uppercase tracking-wide">
             Navigation
           </p>
 
@@ -485,20 +482,20 @@ const logout = () => {};
               onClick={() => setMobileMenuOpen(false)}
               className="
                 flex items-center gap-4 px-4 py-3 rounded-xl
-                bg-white border shadow-sm
-                hover:shadow-md active:scale-[0.98]
-                transition
+                bg-white border border-emerald-200
+                hover:bg-emerald-100 transition
               "
             >
-              <Users className="w-4 h-4 text-[#355f4a]" />
+              <Users className="w-4 h-4 text-emerald-600" />
               <span className="font-medium text-black">{item.name}</span>
             </Link>
           ))}
         </div>
 
+
         {/* Services */}
-        <div className="bg-emerald-50 rounded-2xl p-4 space-y-3">
-          <p className="text-xs font-bold text-emerald-700 uppercase tracking-wide">
+        <div className="bg-gray-50 rounded-2xl p-4 space-y-3">
+          <p className="text-xs font-bold text-gray-500 uppercase tracking-wide">
             Services
           </p>
 
@@ -509,11 +506,12 @@ const logout = () => {};
               onClick={() => setMobileMenuOpen(false)}
               className="
                 flex items-center gap-4 px-4 py-3 rounded-xl
-                bg-white border border-emerald-200
-                hover:bg-emerald-100 transition
+                bg-white border shadow-sm
+                hover:shadow-md active:scale-[0.98]
+                transition
               "
             >
-              <Stethoscope className="w-4 h-4 text-emerald-600" />
+              <Stethoscope className="w-4 h-4 text-[#355f4a]" />
               <span className="text-black">{s.name}</span>
             </Link>
           ))}
@@ -575,263 +573,271 @@ const logout = () => {};
 
       <main className="flex-grow">{children}</main>
 
- {/* ================= FOOTER ================= */}
-      <footer
-        className="
-          relative bg-black text-white overflow-hidden
-          mx-4 mt-12 mb-6 rounded-3xl
-        "
-        style={{ clipPath: "inset(0 round 1.5rem)" }}
-      >
-        {(() => {
-          const scrollToTop = () => {
-            window.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          };
+{/* ================= FOOTER ================= */}
+<footer
+  className="
+    relative bg-black text-white overflow-hidden
+    mx-4 mt-12 mb-6 rounded-3xl
+  "
+  style={{ clipPath: "inset(0 round 1.5rem)" }}
+>
+  {(() => {
+    const scrollToTop = () => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    };
 
-          return (
-            <>
-              {/*Animated Background Grid */}
-              <motion.div
-                className="absolute inset-0 pointer-events-none"
-                animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                style={{
-                  backgroundImage: `
-                    linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px)
-                  `,
-                  backgroundSize: "60px 60px",
-                }}
-              />
+    return (
+      <>
+        {/* Animated Background Grid */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
+          }}
+        />
 
-              {/*Ambient Glow */}
-              <motion.div
-                className="absolute -top-40 left-1/2 -translate-x-1/2
-                          w-[500px] h-[500px] bg-gray-500/10
-                          rounded-full blur-3xl pointer-events-none"
-                animate={{ scale: [1, 1.12, 1] }}
-                transition={{ duration: 8, repeat: Infinity }}
-              />
+        {/* Ambient Glow */}
+        <motion.div
+          className="absolute -top-40 left-1/2 -translate-x-1/2
+                    w-[500px] h-[500px] bg-gray-500/10
+                    rounded-full blur-3xl pointer-events-none"
+          animate={{ scale: [1, 1.12, 1] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
 
-              {/* CONTENT */}
-              <div className="relative z-10 max-w-7xl mx-auto px-7 py-14">
+        {/* CONTENT */}
+        <div className="relative z-10 max-w-7xl mx-auto px-7 ">
 
-                {/* Divider */}
-                <motion.div
-                  className="h-[2px] w-full bg-gradient-to-r
-                            from-transparent via-white to-transparent
-                            mb-16 pointer-events-none"
-                  animate={{ opacity: [0.35, 0.8, 0.35] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                />
+          {/* Divider */}
+          <motion.div
+            className="h-[2px] w-full bg-gradient-to-r
+                      from-transparent via-white to-transparent
+                      mb-16 pointer-events-none"
+            animate={{ opacity: [0.35, 0.8, 0.35] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
 
-                  {/* Brand */}
-                  <motion.div
-                    className="md:col-span-2 space-y-6"
-                    whileHover={{ y: -6 }}
-                    transition={{ type: "spring", stiffness: 180 }}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-full bg-white
-                                      flex items-center justify-center shadow-xl">
-                        <img
-                          src={logoImage}
-                          alt="KerMedix Logo"
-                          className="w-10 h-10"
-                        />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-extrabold">KerMedix</h2>
-                        <p className="text-sm text-gray-400">
-                          Digital Public Health Platform
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-400 max-w-lg leading-relaxed">
-                      Empowering inclusive healthcare access for migrant workers
-                      through secure digital health records and telemedicine.
-                    </p>
-
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-start gap-3 text-gray-300">
-                        <Phone className="w-4 h-4 text-emerald-400 mt-1" />
-                        <div className="flex flex-col">
-                          <a href="tel:+917848091884" className="hover:text-emerald-400">
-                            +91-7848091884
-                          </a>
-                          <a href="tel:+7847810210" className="hover:text-emerald-400">
-                            +91-7847810210
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <Mail className="w-4 h-4 text-orange-400" />
-                        <a
-                          href="mailto:kermedix.Dhrms@gmail.com?subject=Support%20Request&body=Hello%20Kermedix%20Team,"
-                          className="hover:text-orange-400"
-                        >
-                          kermedix.Dhrms@gmail.com
-                        </a>
-                      </div>
-
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <MapPin className="w-4 h-4 text-blue-400" />
-                        Kerala, India
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Services Card */}
-                  <motion.div className="footer-card" whileHover={{ y: -6 }}>
-                    <h4 className="footer-card-title">Services</h4>
-                    <ul className="footer-card-list">
-                      {services.map((s) => (
-                        <li key={s.name}>
-                          <Link
-                            to={s.href}
-                            onClick={scrollToTop}
-                            className="footer-card-link"
-                          >
-                            {s.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-
-                  {/* Quick Links Card */}
-                  <motion.div className="footer-card" whileHover={{ y: -6 }}>
-                    <h4 className="footer-card-title">Quick Links</h4>
-                    <ul className="footer-card-list">
-                      <li>
-                        <Link to="/help" onClick={scrollToTop} className="footer-card-link">
-                          Help
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/faq" onClick={scrollToTop} className="footer-card-link">
-                          FAQs
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/contact" onClick={scrollToTop} className="footer-card-link">
-                          Contact
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/login" onClick={scrollToTop} className="footer-card-link">
-                          User Portal
-                        </Link>
-                      </li>
-                    </ul>
-                  </motion.div>
-
+            {/* Brand Section */}
+            <motion.div
+              className="md:col-span-2 space-y-7"
+              whileHover={{ y: -4 }}
+              transition={{ type: "spring", stiffness: 160 }}
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-full bg-white
+                                flex items-center justify-center shadow-xl">
+                  <img
+                    src={logoImage}
+                    alt="KerMedix Logo"
+                    className="w-10 h-10"
+                  />
+                </div>
+                <div>
+                  <h2 className="text-3xl font-extrabold">KerMedix</h2>
+                  <p className="text-l text-gray-400 hover:text-[#ff6200]">
+                    Digital Public Health Platform
+                  </p>
                 </div>
               </div>
 
-              {/* Built with Love  */}
-              <div className="relative z-10 max-w-7xl mx-auto px-6 py-4">
-                <div className="border-t border-white/10 pt-3 flex justify-center">
-                  <div className="flex items-center gap-2 text-sm sm:text-base text-gray-300">
+              <p className="text-white max-w-xl leading-relaxed ">
+                
+                Empowering inclusive healthcare access for migrant workers
+                through secure digital health records and telemedicine.
+              </p>
 
-                    <span>Built with</span>
-
-                    <motion.span
-                      aria-label="love"
-                      className="text-red-500 font-semibold"
-                      animate={{ scale: [1, 1.12, 1] }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                   >
-                      ♥
-                    </motion.span>
-                    <span>by</span>
-
-                    <span className="text-white font-medium">Sai</span>
-                    <span className="text-gray-500">×</span>
-                    <span className="text-white font-medium">Ashu</span>
-
+              <div className="space-y-3 text-sm">
+                <div className="flex items-start gap-3 text-white">
+                  <Phone className="w-6 h-6 text-emerald-400 mt-1" />
+                  <div className="flex flex-col">
+                    <a href="tel:+917848091884" className="hover:text-emerald-400">
+                      +91-7848091884
+                    </a>
+                    <a href="tel:+917847810210" className="hover:text-emerald-400">
+                      +91-7847810210
+                    </a>
                   </div>
                 </div>
-              </div>
 
-              {/* Marquee */}
-              <div className="w-full bg-black border-t-2 border-gray-700
-                              overflow-hidden relative h-32">
-                <div className="absolute top-1/2 -translate-y-1/2
-                                flex animate-marquee whitespace-nowrap
-                                pointer-events-none">
-                  <span
-                    className="text-white text-5xl"
-                    style={{ fontFamily: "'Press Start 2P', monospace" }}
+                <div className="flex items-center gap-3 text-white">
+                  <Mail className="w-6 h-6 text-orange-400" />
+                  <a
+                    href="mailto:kermedix.Dhrms@gmail.com?subject=Support%20Request&body=Hello%20Kermedix%20Team,"
+                    className="hover:text-orange-400"
                   >
-                    © 2026 KerMedix Health Services. All rights reserved. &nbsp;
-                    © 2026 KerMedix Health Services. All rights reserved. &nbsp;
-                  </span>
+                    kermedix.Dhrms@gmail.com
+                  </a>
+                </div>
+
+                <div className="flex items-center gap-3 text-white">
+                  <MapPin className="w-6 h-6 text-blue-400" />
+                  <a
+                    href="https://maps.app.goo.gl/6BxwSDMjFTmbcNLr8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#3083ff] transition-colors font-medium"
+                  >
+                     Kerala, India
+                  </a>
                 </div>
               </div>
+            </motion.div>
 
-              {/* Styles */}
-              <style>{`
-                .footer-card {
-                  background: rgba(255,255,255,0.06);
-                  backdrop-filter: blur(12px);
-                  border: 1px solid rgba(255,255,255,0.12);
-                  border-radius: 18px;
-                  padding: 28px;
-                  transition: transform 0.3s ease;
-                }
+            {/* Services */}
+            <motion.div className="space-y-6">
+              <h4 className="text-3xl font-semibold tracking-wide">
+                Services
+              </h4>
 
-                .footer-card-title {
-                  font-size: 18px;
-                  font-weight: 700;
-                  margin-bottom: 18px;
-                }
+              <ul className="space-y-3">
+                {services.map((s) => (
+                  <li key={s.name}>
+                    <Link
+                      to={s.href}
+                      onClick={scrollToTop}
+                      className="footer-link"
+                    >
+                      {s.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-                .footer-card-list {
-                  display: flex;
-                  flex-direction: column;
-                  gap: 14px;
-                }
+            {/* Quick Links */}
+            <motion.div className="space-y-6">
+              <h4 className="text-3xl font-semibold tracking-wide">
+                Quick Links
+              </h4>
 
-                .footer-card-link {
-                  position: relative;
-                  color: #9ca3af;
-                  padding-left: 14px;
-                  transition: color 0.25s ease, padding-left 0.25s ease;
-                }
+              <ul className="space-y-3">
+                {[
+                  { name: "Help", href: "/help" },
+                  { name: "FAQs", href: "/faq" },
+                  { name: "Contact", href: "/contact" },
+                  { name: "User Portal", href: "/login" },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      to={item.href}
+                      onClick={scrollToTop}
+                      className="footer-link"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
 
-                .footer-card-link::before {
-                  content: "›";
-                  position: absolute;
-                  left: 0;
-                  opacity: 0;
-                  transform: translateX(-4px);
-                  transition: all 0.25s ease;
-                  color: white;
-                }
+          </div>
+        </div>
 
-                .footer-card-link:hover {
-                  color: white;
-                  padding-left: 18px;
-                }
+        {/* Built with Love – Liquid Capsule */}
+        <div className="relative z-10 max-w-7xl mx-auto px-100 py-8 flex justify-center">
+          <div className="relative w-fit overflow-hidden rounded-full border border-white/20 shadow-xl">
 
-                .footer-card-link:hover::before {
-                  opacity: 1;
-                  transform: translateX(0);
-                }
-              `}</style>
-            </>
-          );
-        })()}
-      </footer>
+            
+            <motion.div
+              className="absolute inset-0 liquid-wave"
+              animate={{
+                backgroundPositionX: ["0%", "200%"],
+                backgroundPositionY: ["0%", "20%", "0%"],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            
+            <div className="relative px-20 py-4 backdrop-blur-xl bg-black/40 rounded-full">
+              <div className="flex items-center gap-3 text-sm sm:text-base text-gray-200">
+
+                <span>Built with</span>
+
+                <motion.span
+                  className="text-red-500 font-semibold"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2.2, repeat: Infinity }}
+                >
+                  ♥
+                </motion.span>
+
+                <span>by</span>
+                <span className="text-white font-medium">Sai</span>
+                <span className="text-white">×</span>
+                <span className="text-white font-medium">Ashu</span>
+
+              </div>
+            </div>
+          </div>
+        </div>        
+       
+
+        {/* Marquee */}
+        <div className="w-full bg-black border-t border-gray-700
+                        overflow-hidden relative h-32">
+          <div className="absolute top-1/2 -translate-y-1/2
+                          flex animate-marquee whitespace-nowrap
+                          pointer-events-none">
+            <span
+              className="text-white text-5xl"
+              style={{ fontFamily: "'Press Start 2P', monospace" }}
+            >
+              © 2026 KerMedix Health Services. All rights reserved. &nbsp;
+              © 2026 KerMedix Health Services. All rights reserved. &nbsp;
+            </span>
+          </div>
+        </div>
+
+        {/* Styles */}
+        <style>{`
+          .footer-link {
+            position: relative;
+            color: #9ca3af;
+            font-size: 15px;
+            transition: color 0.25s ease, transform 0.25s ease;
+          }
+
+          .footer-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 1px;
+            background: white;
+            transition: width 0.25s ease;
+          }
+
+          .footer-link:hover {
+            color: white;
+            transform: translateX(6px);
+          }
+
+          .footer-link:hover::after {
+            width: 100%;
+          }
+
+        `}</style>
+      </>
+    );
+  })()}
+</footer>
 
       <style>{`
         @keyframes marquee {
