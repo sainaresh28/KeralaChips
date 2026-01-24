@@ -746,7 +746,7 @@ const logout = () => {};
         </div>
 
         {/* Built with Love – Liquid Capsule */}
-        <div className="relative z-10 max-w-7xl mx-auto px-100 py-8 flex justify-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-20 py-8 flex justify-center">
           <div className="relative w-fit overflow-hidden rounded-full border border-white/20 shadow-xl">
 
             
@@ -764,7 +764,7 @@ const logout = () => {};
             />
 
             
-            <div className="relative px-20 py-4 backdrop-blur-xl bg-black/40 rounded-full">
+            <div className="relative px-10 py-4 backdrop-blur-xl bg-black/40 rounded-full">
               <div className="flex items-center gap-3 text-sm sm:text-base text-gray-200">
 
                 <span>Built with</span>
