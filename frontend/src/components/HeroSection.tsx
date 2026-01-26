@@ -708,7 +708,7 @@ const HeroSection = () => {
     </div>
 
     
-      {/* ================= PWD Install button HOVER ================= */}
+      {/* ================= PWA Install button HOVER ================= */}
       {!isStandalone && (isInstallable || isIOS) && (
         <>
           {/* INFO CARD */}
@@ -808,3 +808,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
