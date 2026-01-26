@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 import HeroSection from "@/components/HeroSection";
 import NewsTicker from "@/components/NewsTicker";
@@ -79,6 +80,73 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  organization: "",
+  location: "",
+  message: "",
+});
+
+const [loading, setLoading] = useState(false);
+
+const handleChange = (e) => {
+  setFormData({ ...formData, [e.target.name]: e.target.value });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+
+  const payload = {
+    from_name: formData.name,
+    from_email: formData.email,
+    phone: formData.phone,
+    organization: formData.organization,
+    location: formData.location,
+    message: formData.message,
+    source: "Enquiry Page",
+  };
+
+  try {
+    // (Contact template)
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      payload,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
+    // Auto-reply to USER
+    await emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_AUTO_REPLY_TEMPLATE_ID,
+      payload,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    );
+
+    alert("Enquiry submitted successfully ");
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      organization: "",
+      location: "",
+      message: "",
+    });
+  } catch (error) {
+    console.error(error);
+    alert("Failed to submit enquiry ");
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
   return (
     <div className="w-full overflow-x-hidden" style={{ backgroundColor: "#F9EFE3" }}>
 
@@ -87,7 +155,7 @@ const Home = () => {
 
       <NewsTicker />
 
-{/* ================= MAIN CONTENT ================= */}
+      {/* ================= MAIN CONTENT ================= */}
       <section className="py-20" style={{ backgroundColor: "#F9EFE3" }}>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,26 +179,72 @@ const Home = () => {
                 </CardHeader>
 
                 {/* Form */}
-                <CardContent className="p-5 space-y-6">
-                  {[
-                    "Your Name",
-                    "Email Address",
-                    "Phone Number",
-                    "Organization",
-                    "Location",
-                  ].map((placeholder) => (
-                    <input
-                      key={placeholder}
-                      type="text"
-                      placeholder={placeholder}
-                      className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
-                                text-gray-700 placeholder-gray-400
-                                focus:outline-none focus:ring-1 focus:ring-[#000000]
-                                transition"
-                    />
-                  ))}
+              <CardContent className="p-5 space-y-6">
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+
+                  <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
+                    className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                              text-gray-700 placeholder-gray-400
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
+                              transition"
+                  />
+
+                  <input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email Address"
+                    required
+                    className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                              text-gray-700 placeholder-gray-400
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
+                              transition"
+                  />
+
+                  <input
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number"
+                    className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                              text-gray-700 placeholder-gray-400
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
+                              transition"
+                  />
+
+                  <input
+                    name="organization"
+                    value={formData.organization}
+                    onChange={handleChange}
+                    placeholder="Organization"
+                    className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                              text-gray-700 placeholder-gray-400
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
+                              transition"
+                  />
+
+                  <input
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="Location"
+                    className="w-full h-14 px-5 rounded-xl border-2 border-[#010105]
+                              text-gray-700 placeholder-gray-400
+                              focus:outline-none focus:ring-1 focus:ring-[#000000]
+                              transition"
+                  />
 
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     rows={5}
                     placeholder="Your Message"
                     className="w-full px-5 py-4 rounded-xl border-2 border-[#090815]
@@ -139,11 +253,11 @@ const Home = () => {
                               transition"
                   />
 
-                  {/* Button */}
                   <button
+                    type="submit"
+                    disabled={loading}
                     className="w-full h-16 mt-4 rounded-xl 
                               bg-[#2f18ff]
-
                               text-white font-semibold text-lg
                               shadow-[0_6px_0_#F4C430]
                               hover:translate-y-[1px]
@@ -151,9 +265,13 @@ const Home = () => {
                               active:translate-y-[2px]
                               transition-all duration-150"
                   >
-                    Submit Enquiry
+                    {loading ? "Sending..." : "Submit Enquiry"}
                   </button>
-                </CardContent>
+
+                </form>
+
+              </CardContent>
+
               </Card>
             </div>
 
@@ -238,6 +356,7 @@ const Home = () => {
       <BentoShowcase />
       <TestimonialSection />
       <InteractiveMap />
+      
     </div>
   );
 };
