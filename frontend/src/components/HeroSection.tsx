@@ -451,7 +451,6 @@ const HeroSection = () => {
                   </div>
                 </div>
               </div>
-
               </div>   
 
               </div>
@@ -555,10 +554,7 @@ const HeroSection = () => {
       <div className="hidden md:flex justify-center w-full pl-80 mt-6">
         <div
           className="
-            grid grid-cols-3 gap-x-3
-            bg-white/1 backdrop-blur-md
-            rounded-xl overflow-hidden
-            max-w-[220px] w-full
+            grid grid-cols-3 gap-x-3 bg-white/1 backdrop-blur-md rounded-xl overflow-hidden max-w-[220px] w-full
           "
         >
           {[
@@ -712,99 +708,100 @@ const HeroSection = () => {
     </div>
 
     
-{/* ================= ICON-ONLY INSTALL WITH INFO CARD ================= */}
-{!isStandalone && (isInstallable || isIOS) && (
-  <div className="fixed bottom-4 right-4 z-50">
-    {/* INFO CARD */}
-{showInstallInfo && (
-  <div
-    className="
-      absolute bottom-16 right-0
-      w-64
-      bg-white text-gray-800
-      rounded-xl
-      shadow-2xl
-      p-4
-      text-sm
-    "
-  >
-    <div className="font-semibold mb-1">
-      {isIOS ? "Add to Home Screen" : "Go App Mode"}
-    </div>
+      {/* ================= PWD Install button HOVER ================= */}
+      {!isStandalone && (isInstallable || isIOS) && (
+        <>
+          {/* INFO CARD */}
+          {showInstallInfo && (
+            <div
+              className="
+                fixed bottom-20 right-4
+                z-50
+                w-64
+                bg-white text-gray-800
+                rounded-xl
+                shadow-2xl
+                p-4
+                text-sm
+              "
+            >
+              {/* CLOSE BUTTON */}
+              <button
+                onClick={() => setShowInstallInfo(false)}
+                className="
+                  absolute top-2 right-2
+                  h-6 w-6
+                  flex items-center justify-center
+                  rounded-full
+                  text-gray-500
+                  hover:bg-gray-100
+                  transition
+                "
+                aria-label="Close"
+              >
+                ✕
+              </button>
 
-    <div className="text-xs text-gray-600 leading-relaxed mb-3">
-      {isIOS ? (
-        <>
-          Tap <strong>Share</strong> →{" "}
-          <strong>Add to Home Screen</strong> to use KerMedix like an app.
-        </>
-      ) : (
-        <>
-          Install KerMedix for a faster, fullscreen,
-          app-like experience with offline support.
+              <div className="font-semibold mb-1 pr-6">
+                {isIOS ? "Add to Home Screen" : "Go App Mode"}
+              </div>
+
+              <div className="text-xs text-gray-600 leading-relaxed mb-3">
+                {isIOS ? (
+                  <>
+                    Tap <strong>Share</strong> →{" "}
+                    <strong>Add to Home Screen</strong> to use KerMedix like an app.
+                  </>
+                ) : (
+                  <>
+                    Install KerMedix for a faster, fullscreen,
+                    app-like experience.
+                  </>
+                )}
+              </div>
+
+              {!isIOS && (
+                <button
+                  onClick={() => {
+                    setShowInstallInfo(false);
+                    installApp();
+                  }}
+                  className="
+                    w-full py-2
+                    rounded-lg
+                    bg-emerald-600
+                    text-white text-xs font-semibold
+                    hover:bg-emerald-700
+                    transition
+                  "
+                >
+                  Enable App Mode
+                </button>
+              )}
+            </div>
+          )}
+
+          {/* FAB BUTTON  */}
+          <div
+            onClick={() => setShowInstallInfo(prev => !prev)}
+            className="
+              fixed bottom-4 right-4 z-50
+              h-12 w-12
+              flex items-center justify-center
+              rounded-full
+              bg-emerald-600
+              text-white
+              shadow-xl
+              cursor-pointer
+              hover:scale-110
+              transition
+            "
+            title="Use KerMedix as App"
+          >
+            <Download className="h-5 w-5" />
+          </div>
         </>
       )}
-    </div>
-
-    {/* ACTION */}
-    {!isIOS && (
-      <button
-        onClick={installApp}
-        className="
-          w-full
-          py-2
-          rounded-lg
-          bg-emerald-600
-          text-white
-          text-xs font-semibold
-          hover:bg-emerald-700
-        "
-      >
-        Install App
-      </button>
-    )}
-
-    {/* Arrow */}
-    <div
-      className="
-        absolute -bottom-2 right-6
-        h-4 w-4
-        bg-white
-        rotate-45
-      "
-    />
-  </div>
-)}
-
-    {/* FAB BUTTON */}
-    <div
-      onClick={() => {
-        if (isIOS) {
-          setShowInstallInfo(prev => !prev);
-        } else {
-          installApp();
-        }
-      }}
-      className="
-        h-12 w-12
-        flex items-center justify-center
-        rounded-full
-        bg-emerald-600
-        text-white
-        shadow-xl
-        cursor-pointer
-        hover:scale-110
-        transition
-      "
-      title="Use KerMedix as App"
-    >
-      <Download className="h-5 w-5" />
-    </div>
-  </div>
-)}
-
-
-
 
     </section>
   );
