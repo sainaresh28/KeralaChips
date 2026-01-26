@@ -5,11 +5,6 @@ import { Link } from 'react-router-dom';
 import { Download, Smartphone } from "lucide-react";
 import { usePWAInstall } from "@/hooks/usePWAInstall";
 
-
-
-
-
-
 import healthWorkers from '@/assets/prognosis-icon-2803190_1280.png';
 import smartHealthcare from '@/assets/stethoscope-icon-2316460_1280.png';
 import sideVideo from '@/assets/1uEgB20NU24EH65gog.mp4';
@@ -19,6 +14,8 @@ const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
+  const [showInstallInfo, setShowInstallInfo] = useState(false);
+
   const heroRef = useRef<HTMLElement>(null);
   const { isInstallable, isIOS, isStandalone, installApp } = usePWAInstall();
 
@@ -714,26 +711,80 @@ const HeroSection = () => {
 
     </div>
 
-        {/* ================= FLOATING INSTALL BAR (MOBILE) ================= */}
-    {!isStandalone && (isInstallable || isIOS) && (
+    
+{/* ================= ICON-ONLY INSTALL WITH INFO CARD ================= */}
+{!isStandalone && (isInstallable || isIOS) && (
+  <div className="fixed bottom-4 right-4 z-50">
+    {/* INFO CARD */}
+    {showInstallInfo && (
       <div
-        onClick={!isIOS ? installApp : undefined}
         className="
-          fixed bottom-1 left-1/2 -translate-x-1/2
-          z-50
-          flex items-center gap-2
-          bg-emerald-600 text-white
-          px-5 py-3 rounded-full
-          shadow-xl
-          active:scale-95
+          absolute bottom-16 right-0
+          w-64
+          bg-white text-gray-800
+          rounded-xl
+          shadow-2xl
+          p-4
+          text-sm
         "
       >
-        <Download size={16} />
-        <span className="text-sm font-semibold">
-          {isIOS ? "Add to Home Screen" : "Install KerMedix"}
-        </span>
+        <div className="font-semibold mb-1">
+          {isIOS ? "Add to Home Screen" : "Go App Mode"}
+        </div>
+
+        <div className="text-xs text-gray-600 leading-relaxed">
+          {isIOS ? (
+            <>
+              Tap <strong>Share</strong> →{" "}
+              <strong>Add to Home Screen</strong> to use KerMedix like an app.
+            </>
+          ) : (
+            <>
+              Install KerMedix for a faster, fullscreen,
+              app-like experience with offline support.
+            </>
+          )}
+        </div>
+
+        {/* Arrow */}
+        <div
+          className="
+            absolute -bottom-2 right-6
+            h-4 w-4
+            bg-white
+            rotate-45
+          "
+        />
       </div>
     )}
+
+    {/* FAB BUTTON */}
+    <div
+      onClick={() => {
+        if (isIOS) {
+          setShowInstallInfo(prev => !prev);
+        } else {
+          installApp();
+        }
+      }}
+      className="
+        h-12 w-12
+        flex items-center justify-center
+        rounded-full
+        bg-emerald-600
+        text-white
+        shadow-xl
+        cursor-pointer
+        hover:scale-110
+        transition
+      "
+      title="Use KerMedix as App"
+    >
+      <Download className="h-5 w-5" />
+    </div>
+  </div>
+)}
+
 
 
 
