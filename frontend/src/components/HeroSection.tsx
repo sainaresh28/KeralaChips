@@ -8,9 +8,10 @@ import { usePWAInstall } from "@/hooks/usePWAInstall";
 import healthWorkers from '@/assets/prognosis-icon-2803190_1280.png';
 import smartHealthcare from '@/assets/stethoscope-icon-2316460_1280.png';
 import sideVideo from '@/assets/1uEgB20NU24EH65gog.mp4';
+import bottomImage from "@/assets/houseboat_silhouette.png";
 
 
-const HeroSection = () => {
+  const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isFlipped, setIsFlipped] = useState(false);
@@ -18,6 +19,13 @@ const HeroSection = () => {
 
   const heroRef = useRef<HTMLElement>(null);
   const { isInstallable, isIOS, isStandalone, installApp } = usePWAInstall();
+
+
+  const bottomImageRef = useRef<HTMLDivElement>(null);
+  const [imageScale, setImageScale] = useState(1.3);
+  const [isMobile, setIsMobile] = useState(false);
+
+
 
  
   useEffect(() => {
@@ -46,12 +54,47 @@ const HeroSection = () => {
     return () => clearInterval(flipInterval);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!bottomImageRef.current) return;
+
+      const rect = bottomImageRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+ 
+    const progress = 1 - Math.min(
+      Math.max(rect.top / windowHeight, 0),
+      1
+    );
+
+    const scale = 1.3 - progress * 0.3;
+
+    setImageScale(scale);
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      handleScroll();
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth < 900);
+      };
+
+      handleResize();
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+
   return (
 
-    
     <section 
       ref={heroRef}
-      className="relative min-h-screen w-full overflow-hidden"
+     className="relative min-h-[120vh] w-full overflow-hidden"
+
       style={{
         background: 'linear-gradient(135deg, hsl(152 45% 22%) 0%, hsl(152 38% 28%) 50%, hsl(152 32% 18%) 100%)',
       }}
@@ -243,6 +286,7 @@ const HeroSection = () => {
             color: rgba(255, 255, 255, 0.85);
           }
         }
+          
 
         @media (max-width: 900px) {
 
@@ -318,7 +362,8 @@ const HeroSection = () => {
    <div className="hero-main">
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex pb-[28vh]">
+
         {/* Left Sidebar Decoration */}
         <div 
           className="hidden lg:flex flex-col justify-center pr-8 py-20"
@@ -542,7 +587,7 @@ const HeroSection = () => {
 
       {/* Bottom Bar */}
       <div 
-        className="absolute bottom-0 left-0 right-0 z-20"
+        className="absolute bottom-[125vh] left-0 right-0 z-20"
         style={{
           opacity: isLoaded ? 1 : 0,
           transition: 'opacity 1s ease-out 0.9s',
@@ -698,6 +743,7 @@ const HeroSection = () => {
           <span>Uptime</span>
         </div>
       </div>
+      
 
       {/*  FOOTER TEXT */}
       <div className="cta-section-mobile">
@@ -707,8 +753,31 @@ const HeroSection = () => {
 
     </div>
 
-    
-      {/* ================= PWA Install button HOVER ================= */}
+      {/* ================= SCROLL ZOOM IMAGE ================= */}
+      <div
+        ref={bottomImageRef}
+        className={`
+          relative w-full overflow-hidden
+        ${isMobile ? "-mt-[10vh]" : "-mt-[20vh]"}
+        `}
+        style={{
+          height: isMobile ? "60vh" : "120vh",
+        }}
+      >
+        <img
+          src={bottomImage}
+          alt="KerMedix Platform"
+          className="w-full h-full object-cover"
+          style={{
+            transform: `scale(${imageScale})`,
+            transformOrigin: isMobile ? "center center" : "center top",
+            transition: "transform 0.1s linear",
+            willChange: "transform",
+          }}
+        />
+      </div>
+
+      {/* ================= PWA Install-ware button HOVER ================= */}
       {!isStandalone && (isInstallable || isIOS) && (
         <>
           {/* INFO CARD */}
@@ -809,5 +878,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
-
