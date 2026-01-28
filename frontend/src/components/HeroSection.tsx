@@ -313,8 +313,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
           }
         }
 
-
-        /* ========= MOBILE ECG ==================== */
+        /* ================== MOBILE ECG ==================== */
  
         /* Center wrapper */
         .kermedix-pulse-wrapper.mobile {
@@ -415,26 +414,30 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         }
 
         @media (max-width: 600px) {
-          .water-exact {
-            height: 140px;
-          }       
-          .w0  { opacity: 0.28; }
-          .w1  { opacity: 0.34; }
-          .w2  { opacity: 0.40; }
-          .w3  { opacity: 0.46; }
-          .w4  { opacity: 0.52; }  
-          .w5  { opacity: 0.50; }
-          .w6  { opacity: 0.46; }
-          .w7  { opacity: 0.40; }
-          .w8  { opacity: 0.34; }
-          .w9  { opacity: 0.28; }
-          .w10 { opacity: 0.22; }
-          .w11 { opacity: 0.18; }
-          .w12 { opacity: 0.14; }
-          .w13 { opacity: 0.10; }
-        }
 
-      `}
+          /* Top dense ripples (brighter) */
+          .w0  { opacity: 0.55; }
+          .w1  { opacity: 0.52; }
+          .w2  { opacity: 0.48; }
+          .w3  { opacity: 0.44; }
+          .w4  { opacity: 0.40; }
+          .w5  { opacity: 0.36; }
+          .w6  { opacity: 0.32; }
+          .w7  { opacity: 0.28; }
+
+          /* Depth fade */
+          .w8  { opacity: 0.24; }
+          .w9  { opacity: 0.20; }
+          .w10 { opacity: 0.16; }
+          .w11 { opacity: 0.13; }
+          .w12 { opacity: 0.11; }
+          .w13 { opacity: 0.09; }
+          .w14 { opacity: 0.07; }
+          .w15 { opacity: 0.06; }
+          .w16 { opacity: 0.05; }
+          .w17 { opacity: 0.04; }
+        }
+    `}
       </style>
 
    <div className="hero-main">
@@ -468,14 +471,12 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
               transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
             }}
           >
-
           </div>
 
           {/* Giant Typography */}
           <div className="relative">
             {/* Main Headline */}
             <div className="space-y-0 leading-none pt-12 lg:pt-20">
-
               <h1 
                 className="font-black tracking-[-0.04em] text-white"
                 style={{
@@ -611,7 +612,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
                     className="w-full h-full"
                   >
                     <path
-                      d="
+                      d=" 
                         M0 20 
                         H150 
                         L180 6 
@@ -775,8 +776,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         <img src={smartHealthcare} alt="Back" />
       </div>
     </div>
-
-      </div>
+    </div>
 
       {/* KERMEDIX */}
       <div className="kermedix-text">KERMEDIX</div>
@@ -852,7 +852,7 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
         viewBox="0 0 1200 240"
         preserveAspectRatio="none"
       >
-        {Array.from({ length: isMobile ? 14 : 10 }).map((_, i) => (
+        {Array.from({ length: isMobile ? 18 : 10 }).map((_, i) => (
           <path
             key={i}
             className={`exact-wave w${i}`}
@@ -894,7 +894,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
       </svg>
     </div>
     </div>
-
 
       {/* ================= PWA Install-ware button HOVER ================= */}
       {!isStandalone && (isInstallable || isIOS) && (
@@ -995,5 +994,6 @@ import bottomImage from "@/assets/houseboat_silhouette.png";
     </section>
   );
 };
+
 
 export default HeroSection;
