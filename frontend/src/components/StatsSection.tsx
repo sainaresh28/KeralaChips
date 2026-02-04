@@ -308,6 +308,7 @@ const css = `
   font-style:normal;
   color:#2f18ff;
   letter-spacing:-0.03em;
+  word-spacing: 0.2em;
   text-transform:uppercase;
   padding:5vw;
   line-height:1;
@@ -327,7 +328,7 @@ const css = `
   
   .top-text p{
     font-size:0.95rem;
-    padding:0 1rem;
+    padding:0 2rem;
   }
   
   .items{
@@ -347,10 +348,6 @@ const css = `
     height:260px;
   }
   
-  .decorative-line{
-    width:95%;
-    height:2px;
-  }
   
   .text-animation-section{
     height:400px;
@@ -358,7 +355,7 @@ const css = `
   
   .text-content{
     font-size:clamp(96px, 14vw, 220px);
-    padding:0 6vw;
+    padding:2vw;
   }
 }
 
