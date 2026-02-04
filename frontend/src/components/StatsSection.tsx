@@ -182,11 +182,12 @@ const { scrollYProgress } = useScroll({
 const css = `
 .stats-section{
   background:#FFFDF5;
-  padding:0;      
-  font-family:Inter, sans-serif;
+  padding:0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow:hidden;
   position:relative;
 }
+
 
 
 .top-text{
