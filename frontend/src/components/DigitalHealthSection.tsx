@@ -29,12 +29,13 @@ const DigitalHealthSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [pillY, setPillY] = useState(0);
 
-  /* ---------- HAPTIC HELPER ---------- */
-  const triggerHaptic = (pattern: number | number[]) => {
-    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
-      navigator.vibrate(pattern);
-    }
-  };
+
+const triggerHaptic = (pattern: number | number[]) => {
+  if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+    navigator.vibrate(pattern);
+  }
+};
+
 
   /* ---------- INIT SOUND ---------- */
   useEffect(() => {
@@ -43,7 +44,7 @@ const DigitalHealthSection = () => {
     audioRef.current = audio;
   }, []);
 
-  /* ---------- RESET WHEN OUT OF VIEW ---------- */
+
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -91,11 +92,10 @@ const DigitalHealthSection = () => {
           const el = itemRefs.current[closestIndex];
           if (el) setPillY(el.offsetTop);
 
-          // 🔊 Sound feedback
           audioRef.current?.play().catch(() => {});
+         
+          triggerHaptic([40, 60, 40]);
 
-          // 📳 Haptic feedback (subtle tick)
-          triggerHaptic(12);
         }
       },
       {
