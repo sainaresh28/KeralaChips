@@ -385,6 +385,7 @@ export default function BentoFeatures() {
         }
 
 
+
         .backface-hidden {
           backface-visibility: hidden;
         }
@@ -393,8 +394,8 @@ export default function BentoFeatures() {
           transform: rotateY(180deg);
         }
 
+
       `}</style>
     </section>
   );
-  
 }
